@@ -10,12 +10,13 @@
         <commons-io.version>2.6</commons-io.version>
         <projectlombok.version>1.16.18</projectlombok.version>
 		<junit.version>4.12</junit.version>
+		<spring.version>4.3.0.RELEASE</spring.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.3.0.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jopt-simple</groupId>
