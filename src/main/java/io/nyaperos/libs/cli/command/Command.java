@@ -1,4 +1,4 @@
-package com.trepixxx.libs.cli.command;
+package io.nyaperos.libs.cli.command;
 
 
 public interface Command extends Runnable {

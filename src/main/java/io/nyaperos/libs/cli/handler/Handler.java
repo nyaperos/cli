@@ -1,4 +1,4 @@
-package com.trepixxx.libs.cli.handler;
+package io.nyaperos.libs.cli.handler;
 
 import java.io.PrintStream;
 

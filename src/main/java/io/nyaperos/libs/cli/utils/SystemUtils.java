@@ -1,4 +1,4 @@
-package com.trepixxx.libs.cli.utils;
+package io.nyaperos.libs.cli.utils;
 
 public class SystemUtils {    
 

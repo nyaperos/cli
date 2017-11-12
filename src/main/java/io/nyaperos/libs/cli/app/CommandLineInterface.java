@@ -1,17 +1,17 @@
-package com.trepixxx.libs.cli.app;
+package io.nyaperos.libs.cli.app;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import com.trepixxx.libs.cli.utils.SystemUtils;
+import io.nyaperos.libs.cli.utils.SystemUtils;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 
-import com.trepixxx.libs.cli.handler.AbstractHandler;
-import com.trepixxx.libs.cli.handler.Handler;
+import io.nyaperos.libs.cli.handler.AbstractHandler;
+import io.nyaperos.libs.cli.handler.Handler;
 
 import lombok.SneakyThrows;
 import lombok.val;

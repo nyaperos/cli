@@ -1,13 +1,13 @@
-package com.trepixxx.libs.cli.handler;
+package io.nyaperos.libs.cli.handler;
 
 import java.io.PrintStream;
 
+import io.nyaperos.libs.cli.command.Command;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.JOptCommandLinePropertySource;
 import org.springframework.core.env.PropertySource;
 
-import com.trepixxx.libs.cli.command.Command;
-import com.trepixxx.libs.cli.utils.HandlerUtils;
+import io.nyaperos.libs.cli.utils.HandlerUtils;
 
 import joptsimple.OptionException;
 import joptsimple.OptionParser;
