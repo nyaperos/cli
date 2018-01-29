@@ -7,7 +7,11 @@ import java.util.Optional;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOfRange;
 
-public class CommandArgumentParser {
+public final class CommandArgumentParser {
+
+    private CommandArgumentParser() {
+        throw new IllegalStateException("The utility class can't not be instantiated");
+    }
 
     public static Optional<String> getCommand(String... args) {
         String command = null;
@@ -20,7 +24,7 @@ public class CommandArgumentParser {
     }
 
     private static int findFirstArgumentPosition(String... args) {
-        for (int i=0; i < args.length; i++)
+        for (int i = 0; i < args.length; i++)
             if (args[i].startsWith("-")) return i;
         return args.length;
     }
