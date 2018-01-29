@@ -1,10 +1,9 @@
 package io.nyaperos.libs.cli.options.predefined;
 
-import io.nyaperos.libs.cli.options.Option;
 import lombok.val;
 import org.junit.Test;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,8 +13,8 @@ public class StringOptionTest {
 
     private static final class ChangeableValueStringOption extends StringOption {
 
-        ChangeableValueStringOption(List<String> alias, String description, List<Option<?>> requiredIfPresent) {
-            super(alias, description, requiredIfPresent);
+        ChangeableValueStringOption(List<String> alias, String description) {
+            super(alias, description);
         }
 
         void changeValue(String value) {
@@ -25,13 +24,19 @@ public class StringOptionTest {
 
     @Test
     public void givenValue_whenGetValue_ShouldBeReturned() {
+        List<String> aliases = Arrays.asList("alias1", "alias2");
+        String description = "This is a fake-test description";
         String value = "dumb-value";
-        StringOption so = create(value);
+
+        StringOption so = create(aliases, description, value);
+
+        assertEquals(aliases, so.getAliases());
+        assertEquals(description, so.getDescription());
         assertEquals(Optional.of(value), so.getValue());
     }
 
-    private StringOption create(String value) {
-        val stringOption = new ChangeableValueStringOption(Collections.emptyList(), "Empty description", Collections.emptyList());
+    private StringOption create(List<String> alias, String description, String value) {
+        val stringOption = new ChangeableValueStringOption(alias, description);
         stringOption.changeValue(value);
         return stringOption;
     }

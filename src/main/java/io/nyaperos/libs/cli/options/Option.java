@@ -11,11 +11,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public abstract class Option<T> {
     @NonNull
-    private final List<String> alias;
+    private final List<String> aliases;
     @NonNull
     private final String description;
-    @NonNull
-    private final List<Option<?>> requiredIfPresent;
     @NonNull
     private final OptionAdapter<T> adapter;
 

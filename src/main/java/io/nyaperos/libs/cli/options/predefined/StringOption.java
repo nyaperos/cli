@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class StringOption extends Option<String> {
 
-    private static final class StringOptionAdapter extends OptionAdapter<String> {
+    private static final class StringOptionAdapter implements OptionAdapter<String> {
 
         @Override
         public Optional<String> adapt(String value) {
@@ -16,8 +16,8 @@ public class StringOption extends Option<String> {
         }
     }
 
-    public StringOption(List<String> alias, String description, List<Option<?>> requiredIfPresent) {
-        super(alias, description, requiredIfPresent, new StringOptionAdapter());
+    public StringOption(List<String> alias, String description) {
+        super(alias, description, new StringOptionAdapter());
     }
 
 }
