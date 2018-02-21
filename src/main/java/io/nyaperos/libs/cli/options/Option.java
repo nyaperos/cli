@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public abstract class Option<T> {
+
     @NonNull
     private final List<String> aliases;
     @NonNull

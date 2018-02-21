@@ -1,7 +1,6 @@
 package io.nyaperos.libs.cli.options.adapters;
 
 
-import io.nyaperos.libs.cli.options.adapters.IntegerOptionAdapter;
 import org.junit.Test;
 
 import java.util.Optional;
