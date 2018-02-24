@@ -1,9 +1,8 @@
 package io.nyaperos.libs.cli.options.builders;
 
-import io.nyaperos.libs.cli.options.FakeBuilder;
 import io.nyaperos.libs.cli.options.FakeOption;
 import io.nyaperos.libs.cli.options.OptionAdapter;
-import io.nyaperos.libs.cli.options.adapters.StringOptionAdapter;
+import io.nyaperos.libs.cli.options.predefined.adapters.StringOptionAdapter;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

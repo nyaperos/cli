@@ -1,5 +1,6 @@
-package io.nyaperos.libs.cli.options.adapters;
+package io.nyaperos.libs.cli.options.predefined.adapters;
 
+import io.nyaperos.libs.cli.options.predefined.adapters.StringOptionAdapter;
 import org.junit.Test;
 
 import java.util.Optional;

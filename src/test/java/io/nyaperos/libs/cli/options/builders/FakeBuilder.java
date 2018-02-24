@@ -1,13 +1,15 @@
-package io.nyaperos.libs.cli.options;
+package io.nyaperos.libs.cli.options.builders;
 
 
+import io.nyaperos.libs.cli.options.FakeOption;
+import io.nyaperos.libs.cli.options.OptionAdapter;
 import io.nyaperos.libs.cli.options.builders.Builder;
 
 public class FakeBuilder extends Builder<FakeOption> {
 
-    private final OptionAdapter adapter;
+    private final OptionAdapter<String> adapter;
 
-    public FakeBuilder(OptionAdapter adapter) {
+    FakeBuilder(OptionAdapter<String> adapter) {
         this.adapter = adapter;
     }
 

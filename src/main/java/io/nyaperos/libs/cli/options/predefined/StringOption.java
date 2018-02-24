@@ -1,7 +1,7 @@
 package io.nyaperos.libs.cli.options.predefined;
 
 import io.nyaperos.libs.cli.options.Option;
-import io.nyaperos.libs.cli.options.adapters.StringOptionAdapter;
+import io.nyaperos.libs.cli.options.predefined.adapters.StringOptionAdapter;
 
 import java.util.List;
 

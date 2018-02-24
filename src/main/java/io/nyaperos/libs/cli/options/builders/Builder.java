@@ -19,12 +19,12 @@ public abstract class Builder<T> {
         return this;
     }
 
-    protected List<String> getAliases() {
+    List<String> getAliases() {
         if (aliases == null || aliases.isEmpty()) throw new InvalidBuildStateException("aliases");
         return aliases;
     }
 
-    protected String getDescription() {
+    String getDescription() {
         if (description == null) throw new InvalidBuildStateException("description");
         return description;
     }
