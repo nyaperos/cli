@@ -9,9 +9,9 @@ import org.reflections.util.FilterBuilder;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
-public class AnnotationsFinder {
+public class AnnotationsUtils {
 
-    private AnnotationsFinder() {
+    private AnnotationsUtils() {
         throw new IllegalStateException("The utility class can't not be instantiated");
     }
 
