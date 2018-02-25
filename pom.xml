@@ -7,6 +7,7 @@
     <properties>
         <java.version>1.8</java.version>
         <jopt-simple.version>5.0.2</jopt-simple.version>
+        <reflections.version>0.9.11</reflections.version>
         <projectlombok.version>1.16.18</projectlombok.version>
         <junit.version>4.12</junit.version>
     </properties>
@@ -15,6 +16,11 @@
             <groupId>net.sf.jopt-simple</groupId>
             <artifactId>jopt-simple</artifactId>
             <version>${jopt-simple.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>${reflections.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
