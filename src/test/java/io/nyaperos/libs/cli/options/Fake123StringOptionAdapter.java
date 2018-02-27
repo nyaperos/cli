@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public class Fake123StringOptionAdapter implements OptionAdapter<String> {
 
-    public static String append123Suffix(String value) {
+    static String append123Suffix(String value) {
         return value + "123";
     }
 
