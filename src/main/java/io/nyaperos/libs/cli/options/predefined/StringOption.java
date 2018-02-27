@@ -7,8 +7,8 @@ import java.util.List;
 
 public class StringOption extends Option<String> {
 
-    public StringOption(List<String> alias, String description) {
-        super(alias, description, new StringOptionAdapter());
+    public StringOption(List<String> commandNames, String description) {
+        super(commandNames, description, new StringOptionAdapter());
     }
 
 }

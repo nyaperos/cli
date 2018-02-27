@@ -1,10 +1,6 @@
 package io.nyaperos.libs.cli.options;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +14,7 @@ import static lombok.AccessLevel.PROTECTED;
 public abstract class Option<T> {
 
     @NonNull
-    private final List<String> aliases;
+    private final List<String> commandNames;
     @NonNull
     private final String description;
     @NonNull

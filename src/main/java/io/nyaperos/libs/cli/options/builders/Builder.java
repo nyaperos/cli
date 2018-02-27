@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class Builder<T> {
-    private List<String> aliases;
+    private List<String> commandNames;
     private String description;
 
-    public Builder<T> aliases(@NonNull String... aliases) {
-        this.aliases = Arrays.asList(aliases);
+    public Builder<T> commandNames(@NonNull String... commandNames) {
+        this.commandNames = Arrays.asList(commandNames);
         return this;
     }
 
@@ -19,9 +19,9 @@ public abstract class Builder<T> {
         return this;
     }
 
-    List<String> getAliases() {
-        if (aliases == null || aliases.isEmpty()) throw new InvalidBuildStateException("aliases");
-        return aliases;
+    List<String> getCommandNames() {
+        if (commandNames == null || commandNames.isEmpty()) throw new InvalidBuildStateException("commandNames");
+        return commandNames;
     }
 
     String getDescription() {

@@ -34,7 +34,7 @@ public class OptionTest {
     @Test
     public void givenNotNullArguments_ShouldReturnIt() {
         val option = new FakeOption(ALIASES, DESCRIPTION, ADAPTER);
-        assertEquals(ALIASES, option.getAliases());
+        assertEquals(ALIASES, option.getCommandNames());
         assertEquals(DESCRIPTION, option.getDescription());
     }
 

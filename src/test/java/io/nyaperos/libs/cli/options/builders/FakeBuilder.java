@@ -3,7 +3,6 @@ package io.nyaperos.libs.cli.options.builders;
 
 import io.nyaperos.libs.cli.options.FakeOption;
 import io.nyaperos.libs.cli.options.OptionAdapter;
-import io.nyaperos.libs.cli.options.builders.Builder;
 
 public class FakeBuilder extends Builder<FakeOption> {
 
@@ -15,7 +14,7 @@ public class FakeBuilder extends Builder<FakeOption> {
 
     @Override
     public FakeOption build() {
-        return new FakeOption(getAliases(), getDescription(), adapter);
+        return new FakeOption(getCommandNames(), getDescription(), adapter);
     }
 }
 

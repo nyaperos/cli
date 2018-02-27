@@ -27,17 +27,17 @@ public class BuilderTest {
         OptionAdapter<String> adapter = new StringOptionAdapter();
         List<String> aliasesList = Arrays.asList(ALIASES);
         FakeOption option = new FakeBuilder(adapter)
-                .aliases(ALIASES)
+                .commandNames(ALIASES)
                 .description(DESCRIPTION)
                 .build();
 
-        assertEquals(aliasesList, option.getAliases());
+        assertEquals(aliasesList, option.getCommandNames());
         assertEquals(DESCRIPTION, option.getDescription());
     }
 
     @Test
     public void givenEmptyAliasesDefined_ThrowException() {
-        String expectedMessage = format(MESSAGE, "aliases");
+        String expectedMessage = format(MESSAGE, "commandNames");
         exception.expect(InvalidBuildStateException.class);
         exception.expectMessage(expectedMessage);
 
@@ -48,7 +48,7 @@ public class BuilderTest {
 
     @Test
     public void givenNoAliasesDefined_ThrowException() {
-        String expectedMessage = format(MESSAGE, "aliases");
+        String expectedMessage = format(MESSAGE, "commandNames");
         exception.expect(InvalidBuildStateException.class);
         exception.expectMessage(expectedMessage);
 
@@ -61,7 +61,7 @@ public class BuilderTest {
     @Test(expected = NullPointerException.class)
     public void givenNulAliasesDefined_ThrowException() {
         new FakeBuilder(null)
-                .aliases(null)
+                .commandNames(null)
                 .description(DESCRIPTION)
                 .build();
     }
@@ -73,14 +73,14 @@ public class BuilderTest {
         exception.expectMessage(expectedMessage);
 
         new FakeBuilder(null)
-                .aliases(ALIASES)
+                .commandNames(ALIASES)
                 .build();
     }
 
     @Test(expected = NullPointerException.class)
     public void givenNullDescriptionDefined_ThrowException() {
         new FakeBuilder(null)
-                .aliases(ALIASES)
+                .commandNames(ALIASES)
                 .description(null)
                 .build();
     }

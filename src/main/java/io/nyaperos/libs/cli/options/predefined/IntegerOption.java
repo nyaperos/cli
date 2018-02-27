@@ -7,8 +7,8 @@ import java.util.List;
 
 public class IntegerOption extends Option<Integer> {
 
-    public IntegerOption(List<String> alias, String description) {
-        super(alias, description, new IntegerOptionAdapter());
+    public IntegerOption(List<String> commandNames, String description) {
+        super(commandNames, description, new IntegerOptionAdapter());
     }
 
 }
