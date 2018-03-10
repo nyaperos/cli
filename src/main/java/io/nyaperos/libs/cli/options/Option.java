@@ -8,20 +8,18 @@ import java.util.Optional;
 import static lombok.AccessLevel.NONE;
 import static lombok.AccessLevel.PROTECTED;
 
-@Getter
-@EqualsAndHashCode
-@RequiredArgsConstructor
-public abstract class Option<T> {
+@EqualsAndHashCode(callSuper = true)
+public abstract class Option<T> extends OptionDefinition {
 
-    @NonNull
-    private final List<String> commandNames;
-    @NonNull
-    private final String description;
-    @NonNull
     private final OptionAdapter<T> adapter;
-    @Getter(NONE)
+    
     @Setter(PROTECTED)
     private String value;
+
+    public Option(List<String> commandNames, String description, @NonNull OptionAdapter<T> adapter) {
+        super(commandNames, description);
+        this.adapter = adapter;
+    }
 
     public Optional<T> value() {
         return adapter.adapt(this.value);
