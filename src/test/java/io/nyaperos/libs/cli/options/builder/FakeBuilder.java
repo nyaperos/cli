@@ -1,4 +1,4 @@
-package io.nyaperos.libs.cli.options.builders;
+package io.nyaperos.libs.cli.options.builder;
 
 
 import io.nyaperos.libs.cli.options.FakeOption;

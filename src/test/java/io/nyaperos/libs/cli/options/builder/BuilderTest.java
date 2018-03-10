@@ -1,4 +1,4 @@
-package io.nyaperos.libs.cli.options.builders;
+package io.nyaperos.libs.cli.options.builder;
 
 import io.nyaperos.libs.cli.options.FakeOption;
 import io.nyaperos.libs.cli.options.OptionAdapter;
@@ -10,7 +10,7 @@ import org.junit.rules.ExpectedException;
 import java.util.Arrays;
 import java.util.List;
 
-import static io.nyaperos.libs.cli.options.builders.InvalidBuildStateException.MESSAGE;
+import static io.nyaperos.libs.cli.options.builder.InvalidBuildStateException.MESSAGE;
 import static java.text.MessageFormat.format;
 import static org.junit.Assert.assertEquals;
 
