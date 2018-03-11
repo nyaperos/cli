@@ -1,10 +1,13 @@
 package io.nyaperos.libs.cli.command;
 
 import io.nyaperos.libs.cli.command.exceptions.CommandNotFoundException;
+import io.nyaperos.libs.cli.command.exceptions.IllegalCommandDefinitionException;
 import io.nyaperos.libs.cli.command.exceptions.MultipleNamesAssignedToCommandException;
 import io.nyaperos.libs.cli.fakes.DuplicatedFakeClass;
 import io.nyaperos.libs.cli.fakes.DuplicatedFakeClass2;
 import io.nyaperos.libs.cli.fakes.subpackage.FakeClass3;
+import io.nyaperos.libs.cli.options.Option;
+import io.nyaperos.libs.cli.utils.AnnotationsUtils;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,11 +22,9 @@ import static org.junit.Assert.assertEquals;
 public class CommandDefinitionServiceTest {
 
     private static final Package PACKAGE = DuplicatedFakeClass2.class.getPackage();
-
+    private static CommandDefinitionService service;
     @Rule
     public ExpectedException exception = ExpectedException.none();
-
-    private static CommandDefinitionService service;
 
     @BeforeClass
     public static void setUpBeforeClass() {
@@ -63,6 +64,44 @@ public class CommandDefinitionServiceTest {
 
         assertEquals(expectedClass, commandDefinitionClass);
         assertEquals(expectedClass, commandDefinitionClass2);
+    }
+
+    /*
+     *
+     */
+
+    @Test
+    public void givenClassWithoutPublicConstructor_ShouldThrowException() {
+        String expectedMessage = format(IllegalCommandDefinitionException.MESSAGE, AnnotationsUtils.class.getCanonicalName());
+        exception.expect(IllegalCommandDefinitionException.class);
+        exception.expectMessage(expectedMessage);
+
+        service.instantiate(AnnotationsUtils.class);
+    }
+
+    @Test
+    public void givenAbstractClass_ShouldThrowException() {
+        String expectedMessage = format(IllegalCommandDefinitionException.MESSAGE, Option.class.getCanonicalName());
+        exception.expect(IllegalCommandDefinitionException.class);
+        exception.expectMessage(expectedMessage);
+
+        service.instantiate(Option.class);
+    }
+
+    @Test
+    public void givenPrimitiveType_ShouldThrowException() {
+        String expectedMessage = format(IllegalCommandDefinitionException.MESSAGE, int.class.getCanonicalName());
+        exception.expect(IllegalCommandDefinitionException.class);
+        exception.expectMessage(expectedMessage);
+
+        service.instantiate(int.class);
+    }
+
+    @Test
+    public void givenValidCommandDefinitionClass_ShouldReturnAnInstance() {
+        DuplicatedFakeClass instance = service.instantiate(DuplicatedFakeClass.class);
+
+        assertEquals(DuplicatedFakeClass.class, instance.getClass());
     }
 
 

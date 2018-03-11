@@ -1,6 +1,7 @@
 package io.nyaperos.libs.cli.command;
 
 import io.nyaperos.libs.cli.command.exceptions.CommandNotFoundException;
+import io.nyaperos.libs.cli.command.exceptions.IllegalCommandDefinitionException;
 import io.nyaperos.libs.cli.command.exceptions.MultipleNamesAssignedToCommandException;
 import io.nyaperos.libs.cli.utils.AnnotationsUtils;
 
@@ -24,6 +25,15 @@ public class CommandDefinitionService {
 
         return matchedCommandDefinitions.get(0);
     }
+
+    public <T> T instantiate(Class<T> clazz) {
+        try {
+            return clazz.newInstance();
+        } catch (IllegalAccessException | InstantiationException exception) {
+            throw new IllegalCommandDefinitionException(clazz);
+        }
+    }
+
 
     private static boolean containsAlias(Class<?> clazz, String commandName) {
         CommandDefinition commandDefinition = clazz.getAnnotation(COMMAND_DEFINITION_ANNOTATION);
