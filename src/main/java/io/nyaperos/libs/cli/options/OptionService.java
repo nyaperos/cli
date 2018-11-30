@@ -6,7 +6,8 @@ import java.util.List;
 
 class OptionService {
 
-    List<OptionDefinition> get(Object instance) {
+    List<OptionDefinition> extract(Object instance) {
         return FieldUtils.findFields(instance, OptionDefinition.class);
     }
+
 }
