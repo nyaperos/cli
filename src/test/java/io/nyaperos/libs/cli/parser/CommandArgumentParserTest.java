@@ -1,16 +1,16 @@
 package io.nyaperos.libs.cli.parser;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CommandArgumentParserTest {
+class CommandArgumentParserTest {
 
     private static final String[] ARGUMENTS = {"command", "-arg1", "value1", "-arg2", "value2"};
     private static final String[] ARGUMENTS_WITHOUT_OPTIONS = {"command1", "command2", "command3"};
@@ -19,7 +19,7 @@ public class CommandArgumentParserTest {
     /*Command*/
 
     @Test
-    public void givenStringArray_ShouldReturnItsCommand() {
+    void givenStringArray_ShouldReturnItsCommand() {
         Optional<String> command = CommandArgumentParser.getCommand(ARGUMENTS);
 
         val expectedCommand = Optional.of("command");
@@ -27,7 +27,7 @@ public class CommandArgumentParserTest {
     }
 
     @Test
-    public void givenStringArrayWithThreeWordsCommand_ShouldReturnTheseTheThreeWords() {
+    void givenStringArrayWithThreeWordsCommand_ShouldReturnTheseTheThreeWords() {
         String[] threeWordsCommandArguments = {"command1", "command2", "command3", "-arg1", "value1", "-arg2", "value2"};
 
         Optional<String> command = CommandArgumentParser.getCommand(threeWordsCommandArguments);
@@ -37,7 +37,7 @@ public class CommandArgumentParserTest {
     }
 
     @Test
-    public void givenStringArrayWithoutOptions_ShouldReturnItsCommand() {
+    void givenStringArrayWithoutOptions_ShouldReturnItsCommand() {
         Optional<String> command = CommandArgumentParser.getCommand(ARGUMENTS_WITHOUT_OPTIONS);
 
         val expectedCommand = Optional.of("command1 command2 command3");
@@ -46,7 +46,7 @@ public class CommandArgumentParserTest {
 
 
     @Test
-    public void givenStringArrayWithoutCommand_ShouldReturnEmptyOptionalAsCommand() {
+    void givenStringArrayWithoutCommand_ShouldReturnEmptyOptionalAsCommand() {
         String[] argumentsWithoutCommand = {"-arg1", "value1", "-arg2", "value2"};
 
         Optional<String> command = CommandArgumentParser.getCommand(argumentsWithoutCommand);
@@ -55,7 +55,7 @@ public class CommandArgumentParserTest {
     }
 
     @Test
-    public void givenEmptyStringArray_ShouldReturnEmptyOptionalAsCommand() {
+    void givenEmptyStringArray_ShouldReturnEmptyOptionalAsCommand() {
         Optional<String> command = CommandArgumentParser.getCommand(EMPTY_ARGUMENTS);
 
         assertEquals(Optional.empty(), command);
@@ -64,7 +64,7 @@ public class CommandArgumentParserTest {
     /*Options*/
 
     @Test
-    public void givenStringArray_ShouldReturnItsOptions() {
+    void givenStringArray_ShouldReturnItsOptions() {
         List<String> options = CommandArgumentParser.getOptions(ARGUMENTS);
 
         List<String> expectedOptions = asList("-arg1", "value1", "-arg2", "value2");
@@ -72,14 +72,14 @@ public class CommandArgumentParserTest {
     }
 
     @Test
-    public void givenStringArrayWithoutOptions_ShouldReturnEmptyListAsOptions() {
+    void givenStringArrayWithoutOptions_ShouldReturnEmptyListAsOptions() {
         List<String> options = CommandArgumentParser.getOptions(ARGUMENTS_WITHOUT_OPTIONS);
 
         assertEquals(Collections.emptyList(), options);
     }
 
     @Test
-    public void givenEmptyStringArray_ShouldReturnEmptyListAsOptions() {
+    void givenEmptyStringArray_ShouldReturnEmptyListAsOptions() {
         List<String> options = CommandArgumentParser.getOptions(EMPTY_ARGUMENTS);
 
         assertEquals(Collections.emptyList(), options);

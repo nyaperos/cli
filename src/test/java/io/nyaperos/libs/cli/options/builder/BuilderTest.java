@@ -4,27 +4,24 @@ import io.nyaperos.libs.cli.fakes.options.FakeOption;
 import io.nyaperos.libs.cli.fakes.options.builder.FakeBuilder;
 import io.nyaperos.libs.cli.options.OptionAdapter;
 import io.nyaperos.libs.cli.options.predefined.adapters.StringOptionAdapter;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static io.nyaperos.libs.cli.options.builder.InvalidBuildStateException.MESSAGE;
 import static java.text.MessageFormat.format;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class BuilderTest {
+class BuilderTest {
 
     private static final String[] ALIASES = new String[]{"alias1", "alias2"};
     private static final String DESCRIPTION = "This is a fake description";
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void givenAllRequiredFieldsProvided_ReturnFakeOption() {
+    void givenAllRequiredFieldsProvided_ReturnFakeOption() {
         OptionAdapter<String> adapter = new StringOptionAdapter();
         List<String> aliasesList = Arrays.asList(ALIASES);
         FakeOption option = new FakeBuilder(adapter)
@@ -37,53 +34,60 @@ public class BuilderTest {
     }
 
     @Test
-    public void givenEmptyAliasesDefined_ThrowException() {
-        String expectedMessage = format(MESSAGE, "aliases");
-        exception.expect(InvalidBuildStateException.class);
-        exception.expectMessage(expectedMessage);
-
-        new FakeBuilder(null)
-                .description(DESCRIPTION)
-                .build();
+    void givenEmptyAliasesDefined_ThrowException() {
+        assertThrows(
+                InvalidBuildStateException.class,
+                () -> new FakeBuilder(null)
+                        .aliases()
+                        .description(DESCRIPTION)
+                        .build(),
+                format(MESSAGE, "aliases")
+        );
     }
 
     @Test
-    public void givenNoAliasesDefined_ThrowException() {
-        String expectedMessage = format(MESSAGE, "aliases");
-        exception.expect(InvalidBuildStateException.class);
-        exception.expectMessage(expectedMessage);
-
-        new FakeBuilder(null)
-                .description(DESCRIPTION)
-                .build();
+    void givenNoAliasesDefined_ThrowException() {
+        assertThrows(
+                InvalidBuildStateException.class,
+                () -> new FakeBuilder(null)
+                        .description(DESCRIPTION)
+                        .build(),
+                format(MESSAGE, "aliases")
+        );
     }
 
 
-    @Test(expected = NullPointerException.class)
-    public void givenNulAliasesDefined_ThrowException() {
-        new FakeBuilder(null)
-                .aliases(null)
-                .description(DESCRIPTION)
-                .build();
+    @Test
+    void givenNullAliasesDefined_ThrowException() {
+        assertThrows(
+                NullPointerException.class,
+                () -> new FakeBuilder(null)
+                        .aliases((String[]) null)
+                        .description(DESCRIPTION)
+                        .build()
+        );
     }
 
     @Test
-    public void givenNoDescriptionDefined_ThrowException() {
-        String expectedMessage = format(MESSAGE, "description");
-        exception.expect(InvalidBuildStateException.class);
-        exception.expectMessage(expectedMessage);
-
-        new FakeBuilder(null)
-                .aliases(ALIASES)
-                .build();
+    void givenNoDescriptionDefined_ThrowException() {
+        assertThrows(
+                InvalidBuildStateException.class,
+                () -> new FakeBuilder(null)
+                        .aliases(ALIASES)
+                        .build(),
+                format(MESSAGE, "description")
+        );
     }
 
-    @Test(expected = NullPointerException.class)
-    public void givenNullDescriptionDefined_ThrowException() {
-        new FakeBuilder(null)
-                .aliases(ALIASES)
-                .description(null)
-                .build();
+    @Test
+    void givenNullDescriptionDefined_ThrowException() {
+        assertThrows(
+                NullPointerException.class,
+                () -> new FakeBuilder(null)
+                        .aliases(ALIASES)
+                        .description(null)
+                        .build()
+        );
     }
 
 }

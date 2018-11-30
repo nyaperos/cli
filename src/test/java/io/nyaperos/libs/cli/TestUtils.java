@@ -7,18 +7,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestUtils {
 
 
     public static <T> void assertContainsSameObject(Collection<T> collection, T object) {
-        assertTrue(StringFormatter.format("Object %s not contained on collection %s", object, collection).getValue(), containsSameObject(collection, object));
+        assertTrue(containsSameObject(collection, object), StringFormatter.format("Object %s not contained on collection %s", object, collection).getValue());
     }
 
     public static <T> void assertNotContainsSameObject(Collection<T> collection, T object) {
-        assertFalse(StringFormatter.format("Object %s is contained on collection %s", object, collection).getValue(), containsSameObject(collection, object));
+        assertFalse(containsSameObject(collection, object), StringFormatter.format("Object %s is contained on collection %s", object, collection).getValue());
     }
 
     private static <T> boolean containsSameObject(Collection<T> collection, T object) {

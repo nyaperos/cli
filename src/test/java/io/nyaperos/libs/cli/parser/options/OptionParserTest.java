@@ -1,26 +1,26 @@
 package io.nyaperos.libs.cli.parser.options;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class OptionParserTest {
+class OptionParserTest {
 
     @Test
-    public void givenNonOptions_ShouldReturnEmptyList() {
+    void givenNonOptions_ShouldReturnEmptyList() {
         List<OptionDTO> options = OptionParser.parse(emptyList());
         assertEquals(emptyList(), options);
     }
 
     @Test
-    public void givenFlagOption_ShouldParseItAndReturnEmptyString() {
+    void givenFlagOption_ShouldParseItAndReturnEmptyString() {
         List<OptionDTO> options = OptionParser.parse(singletonList("-o"));
 
         val expected = singletonList(new OptionDTO("-o", ""));
@@ -29,7 +29,7 @@ public class OptionParserTest {
     }
 
     @Test
-    public void givenTwoFlagOptions_ShouldParseItAndReturnTwoOptionsWithEmptyString() {
+    void givenTwoFlagOptions_ShouldParseItAndReturnTwoOptionsWithEmptyString() {
         List<OptionDTO> options = OptionParser.parse(asList("-o", "-f"));
 
         OptionDTO optionO = new OptionDTO("-o", "");
@@ -43,7 +43,7 @@ public class OptionParserTest {
     }
 
     @Test
-    public void givenOneShortOptionValue_ShouldParseIt() {
+    void givenOneShortOptionValue_ShouldParseIt() {
         List<OptionDTO> options = OptionParser.parse(asList("-o", "option"));
 
         val expected = singletonList(new OptionDTO("-o", "option"));
@@ -51,7 +51,7 @@ public class OptionParserTest {
     }
 
     @Test
-    public void givenOneLongOptionValue_ShouldParseIt() {
+    void givenOneLongOptionValue_ShouldParseIt() {
         List<OptionDTO> options = OptionParser.parse(asList("--option", "option"));
 
         val expected = singletonList(new OptionDTO("--option", "option"));
@@ -59,7 +59,7 @@ public class OptionParserTest {
     }
 
     @Test
-    public void givenOneOptionAndMultipleValue_ShouldParseIt() {
+    void givenOneOptionAndMultipleValue_ShouldParseIt() {
         List<OptionDTO> options = OptionParser.parse(asList("--option", "option1", "option2", "option3"));
 
         val expected = singletonList(new OptionDTO("--option", "option1 option2 option3"));
@@ -67,7 +67,7 @@ public class OptionParserTest {
     }
 
     @Test
-    public void givenOneOptionAndOneValueWithSlashes_ShouldParseItAsOnlyOneOption() {
+    void givenOneOptionAndOneValueWithSlashes_ShouldParseItAsOnlyOneOption() {
         List<OptionDTO> options = OptionParser.parse(asList("--option", "option-1, option-2, option-3"));
 
         val expected = singletonList(new OptionDTO("--option", "option-1, option-2, option-3"));
@@ -75,7 +75,7 @@ public class OptionParserTest {
     }
 
     @Test
-    public void givenMultipleOptionsWithValues_ShouldParseIt() {
+    void givenMultipleOptionsWithValues_ShouldParseIt() {
         List<OptionDTO> options = OptionParser.parse(asList(
                 "--option", "option1",
                 "--argument", "argument1", "argument2"));

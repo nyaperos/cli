@@ -1,18 +1,18 @@
 package io.nyaperos.libs.cli.options.predefined.adapters;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class IntegerOptionAdapterTest {
+class IntegerOptionAdapterTest {
 
     private static final IntegerOptionAdapter ADAPTER = new IntegerOptionAdapter();
 
     @Test
-    public void given100AsString_whenAdapt_ShouldReturnOptionalWith100AsInteger() {
+    void given100AsString_whenAdapt_ShouldReturnOptionalWith100AsInteger() {
         assertEquals(Optional.of(100), ADAPTER.adapt("100"));
     }
 

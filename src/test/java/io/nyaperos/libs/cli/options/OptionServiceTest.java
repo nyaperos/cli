@@ -2,24 +2,24 @@ package io.nyaperos.libs.cli.options;
 
 import io.nyaperos.libs.cli.fakes.packages.FakeCommandDefinitionWithOptions;
 import lombok.val;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import static io.nyaperos.libs.cli.TestUtils.assertContainsSameObject;
 import static io.nyaperos.libs.cli.TestUtils.assertNotContainsSameObject;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-public class OptionServiceTest {
+class OptionServiceTest {
 
     private static OptionService optionService;
 
-    @BeforeClass
-    public static void setUpBeforeClass() {
+    @BeforeAll
+    static void setUpBeforeAll() {
         optionService = new OptionService();
     }
 
     @Test
-    public void givenCommandDefinitionWithOptionField_ShouldReturnIt() {
+    void givenCommandDefinitionWithOptionField_ShouldReturnIt() {
         val commandDefinition = new FakeCommandDefinitionWithOptions();
 
         val optionsDefinition = optionService.extract(commandDefinition);
@@ -29,7 +29,7 @@ public class OptionServiceTest {
     }
 
     @Test
-    public void givenDifferentInstancesOfCommand_ShouldBeDifferentOptionDefinitionInstances() {
+    void givenDifferentInstancesOfCommand_ShouldBeDifferentOptionDefinitionInstances() {
         val commandDefinition = new FakeCommandDefinitionWithOptions();
         val commandDefinition2 = new FakeCommandDefinitionWithOptions();
 
@@ -37,7 +37,7 @@ public class OptionServiceTest {
     }
 
     @Test
-    public void givenDifferentInstancesOfCommand_ShouldReturnDifferentOptionDefinitionInstances() {
+    void givenDifferentInstancesOfCommand_ShouldReturnDifferentOptionDefinitionInstances() {
         val commandDefinition = new FakeCommandDefinitionWithOptions();
         val commandDefinition2 = new FakeCommandDefinitionWithOptions();
 

@@ -1,22 +1,22 @@
 package io.nyaperos.libs.cli.utils;
 
+import io.nyaperos.libs.cli.fakes.options.FakeOption;
 import io.nyaperos.libs.cli.fakes.packages.FakeCommandDefinitionWithOptions;
 import io.nyaperos.libs.cli.fakes.packages.duplicated.FakeNonCommandDefinition;
-import io.nyaperos.libs.cli.fakes.options.FakeOption;
 import io.nyaperos.libs.cli.options.OptionDefinition;
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static io.nyaperos.libs.cli.TestUtils.asSet;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FieldUtilsTest {
+class FieldUtilsTest {
 
     @Test
-    public void givenClassWithoutFakeOptionFields_ShouldReturnEmptyList() {
+    void givenClassWithoutFakeOptionFields_ShouldReturnEmptyList() {
         val emptyOptionClass = new FakeNonCommandDefinition();
         List<FakeOption> options = FieldUtils.findFields(emptyOptionClass, FakeOption.class);
 
@@ -24,7 +24,7 @@ public class FieldUtilsTest {
     }
 
     @Test
-    public void givenClassWithTwoFakeOptionFields_ShouldReturnListWithTheseTwoEqualFieldInstances() {
+    void givenClassWithTwoFakeOptionFields_ShouldReturnListWithTheseTwoEqualFieldInstances() {
         val emptyOptionClass = new FakeCommandDefinitionWithOptions();
         val expectedOptions = asSet(emptyOptionClass.name, emptyOptionClass.history);
 
@@ -34,7 +34,7 @@ public class FieldUtilsTest {
     }
 
     @Test
-    public void givenClassWithTwoFields_WhenParentClassOfTheseFieldsIsSearched_ShouldReturnListWithTheseTwoEqualFieldInstances() {
+    void givenClassWithTwoFields_WhenParentClassOfTheseFieldsIsSearched_ShouldReturnListWithTheseTwoEqualFieldInstances() {
         val emptyOptionClass = new FakeCommandDefinitionWithOptions();
         val expectedOptions = asSet(emptyOptionClass.name, emptyOptionClass.history);
 
