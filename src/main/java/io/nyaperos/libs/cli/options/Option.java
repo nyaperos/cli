@@ -1,6 +1,5 @@
 package io.nyaperos.libs.cli.options;
 
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -9,7 +8,6 @@ import java.util.Optional;
 
 import static lombok.AccessLevel.PROTECTED;
 
-@EqualsAndHashCode(callSuper = true)
 public abstract class Option<T> extends OptionDefinition {
 
     private final OptionAdapter<T> adapter;
@@ -17,8 +15,8 @@ public abstract class Option<T> extends OptionDefinition {
     @Setter(PROTECTED)
     private String value;
 
-    public Option(List<String> commandNames, String description, @NonNull OptionAdapter<T> adapter) {
-        super(commandNames, description);
+    public Option(List<String> aliases, String description, @NonNull OptionAdapter<T> adapter) {
+        super(aliases, description);
         this.adapter = adapter;
     }
 

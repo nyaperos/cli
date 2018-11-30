@@ -3,9 +3,9 @@ package io.nyaperos.libs.cli.command;
 import io.nyaperos.libs.cli.command.exceptions.CommandNotFoundException;
 import io.nyaperos.libs.cli.command.exceptions.IllegalCommandDefinitionException;
 import io.nyaperos.libs.cli.command.exceptions.MultipleNamesAssignedToCommandException;
-import io.nyaperos.libs.cli.fakes.DuplicatedFakeClass;
-import io.nyaperos.libs.cli.fakes.DuplicatedFakeClass2;
-import io.nyaperos.libs.cli.fakes.subpackage.FakeClass3;
+import io.nyaperos.libs.cli.fakes.packages.FakeCommandDefinitionWithoutOptions;
+import io.nyaperos.libs.cli.fakes.packages.duplicated.DuplicatedCommandDefinition;
+import io.nyaperos.libs.cli.fakes.packages.duplicated.DuplicatedCommandDefinition2;
 import io.nyaperos.libs.cli.options.Option;
 import io.nyaperos.libs.cli.utils.AnnotationsUtils;
 import org.junit.BeforeClass;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 public class CommandDefinitionServiceTest {
 
-    private static final Package PACKAGE = DuplicatedFakeClass2.class.getPackage();
+    private static final Package PACKAGE = FakeCommandDefinitionWithoutOptions.class.getPackage();
     private static CommandDefinitionService service;
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -44,7 +44,7 @@ public class CommandDefinitionServiceTest {
     @Test
     public void givenNameAssignedToMultipleCommands_ShouldThrowException() throws CommandNotFoundException {
         String commandName = "duplicated-fake";
-        List<Class<?>> classes = Arrays.asList(DuplicatedFakeClass.class, DuplicatedFakeClass2.class);
+        List<Class<?>> classes = Arrays.asList(DuplicatedCommandDefinition.class, DuplicatedCommandDefinition2.class);
         String expectedMessage = format(MultipleNamesAssignedToCommandException.MESSAGE, commandName, classes);
 
         exception.expect(MultipleNamesAssignedToCommandException.class);
@@ -55,7 +55,7 @@ public class CommandDefinitionServiceTest {
 
     @Test
     public void givenCommandDefinitionWith2Names_ThenCanBeFoundBy2Names() throws CommandNotFoundException {
-        Class<?> expectedClass = FakeClass3.class;
+        Class<?> expectedClass = FakeCommandDefinitionWithoutOptions.class;
         String commandName = "fake3";
         String commandName2 = "fake-3";
 
@@ -99,9 +99,9 @@ public class CommandDefinitionServiceTest {
 
     @Test
     public void givenValidCommandDefinitionClass_ShouldReturnAnInstance() {
-        DuplicatedFakeClass instance = service.instantiate(DuplicatedFakeClass.class);
+        DuplicatedCommandDefinition instance = service.instantiate(DuplicatedCommandDefinition.class);
 
-        assertEquals(DuplicatedFakeClass.class, instance.getClass());
+        assertEquals(DuplicatedCommandDefinition.class, instance.getClass());
     }
 
 

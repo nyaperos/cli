@@ -1,6 +1,7 @@
 package io.nyaperos.libs.cli.options.builder;
 
-import io.nyaperos.libs.cli.options.FakeOption;
+import io.nyaperos.libs.cli.fakes.options.FakeOption;
+import io.nyaperos.libs.cli.fakes.options.builder.FakeBuilder;
 import io.nyaperos.libs.cli.options.OptionAdapter;
 import io.nyaperos.libs.cli.options.predefined.adapters.StringOptionAdapter;
 import org.junit.Rule;
@@ -27,17 +28,17 @@ public class BuilderTest {
         OptionAdapter<String> adapter = new StringOptionAdapter();
         List<String> aliasesList = Arrays.asList(ALIASES);
         FakeOption option = new FakeBuilder(adapter)
-                .commandNames(ALIASES)
+                .aliases(ALIASES)
                 .description(DESCRIPTION)
                 .build();
 
-        assertEquals(aliasesList, option.getCommandNames());
+        assertEquals(aliasesList, option.getAliases());
         assertEquals(DESCRIPTION, option.getDescription());
     }
 
     @Test
     public void givenEmptyAliasesDefined_ThrowException() {
-        String expectedMessage = format(MESSAGE, "commandNames");
+        String expectedMessage = format(MESSAGE, "aliases");
         exception.expect(InvalidBuildStateException.class);
         exception.expectMessage(expectedMessage);
 
@@ -48,7 +49,7 @@ public class BuilderTest {
 
     @Test
     public void givenNoAliasesDefined_ThrowException() {
-        String expectedMessage = format(MESSAGE, "commandNames");
+        String expectedMessage = format(MESSAGE, "aliases");
         exception.expect(InvalidBuildStateException.class);
         exception.expectMessage(expectedMessage);
 
@@ -61,7 +62,7 @@ public class BuilderTest {
     @Test(expected = NullPointerException.class)
     public void givenNulAliasesDefined_ThrowException() {
         new FakeBuilder(null)
-                .commandNames(null)
+                .aliases(null)
                 .description(DESCRIPTION)
                 .build();
     }
@@ -73,14 +74,14 @@ public class BuilderTest {
         exception.expectMessage(expectedMessage);
 
         new FakeBuilder(null)
-                .commandNames(ALIASES)
+                .aliases(ALIASES)
                 .build();
     }
 
     @Test(expected = NullPointerException.class)
     public void givenNullDescriptionDefined_ThrowException() {
         new FakeBuilder(null)
-                .commandNames(ALIASES)
+                .aliases(ALIASES)
                 .description(null)
                 .build();
     }

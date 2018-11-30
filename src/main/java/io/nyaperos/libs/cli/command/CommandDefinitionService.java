@@ -10,13 +10,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CommandDefinitionService {
+class CommandDefinitionService {
 
     private static final Class<CommandDefinition> COMMAND_DEFINITION_ANNOTATION = CommandDefinition.class;
 
-    public Class<?> find(Package pkg, String commandName) throws CommandNotFoundException {
+    Class<?> find(Package pkg, String commandName) throws CommandNotFoundException {
         Set<Class<?>> classes = AnnotationsUtils.find(pkg, COMMAND_DEFINITION_ANNOTATION);
-        List<Class<?>> matchedCommandDefinitions = classes.stream().filter(c -> containsAlias(c, commandName)).collect(Collectors.toList());
+        List<Class<?>> matchedCommandDefinitions = classes.stream()
+                .filter(c -> containsAlias(c, commandName))
+                .collect(Collectors.toList());
+
         if (matchedCommandDefinitions.size() > 1)
             throw new MultipleNamesAssignedToCommandException(commandName, matchedCommandDefinitions);
 
@@ -26,14 +29,13 @@ public class CommandDefinitionService {
         return matchedCommandDefinitions.get(0);
     }
 
-    public <T> T instantiate(Class<T> clazz) {
+    <T> T instantiate(Class<T> clazz) {
         try {
             return clazz.newInstance();
         } catch (IllegalAccessException | InstantiationException exception) {
             throw new IllegalCommandDefinitionException(clazz);
         }
     }
-
 
     private static boolean containsAlias(Class<?> clazz, String commandName) {
         CommandDefinition commandDefinition = clazz.getAnnotation(COMMAND_DEFINITION_ANNOTATION);

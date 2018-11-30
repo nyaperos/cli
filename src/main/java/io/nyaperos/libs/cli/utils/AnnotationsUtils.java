@@ -11,9 +11,7 @@ import java.util.Set;
 
 public class AnnotationsUtils {
 
-    private AnnotationsUtils() {
-        throw new IllegalStateException("The utility class can't not be instantiated");
-    }
+    private AnnotationsUtils() {}
 
     public static Set<Class<?>> find(Package pkg, Class<? extends Annotation> annotation) {
         Reflections reflections = new Reflections(

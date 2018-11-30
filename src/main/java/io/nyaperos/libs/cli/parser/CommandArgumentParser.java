@@ -7,20 +7,17 @@ import java.util.Optional;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOfRange;
 
-public final class CommandArgumentParser {
+final class CommandArgumentParser {
 
     private CommandArgumentParser() {
         throw new IllegalStateException("The utility class can't not be instantiated");
     }
 
-    public static Optional<String> getCommand(String... args) {
-        String command = null;
+    static Optional<String> getCommand(String... args) {
         int firstArgumentPosition = findFirstArgumentPosition(args);
 
-        if (firstArgumentPosition != 0)
-            command = String.join(" ", copyOfRange(args, 0, firstArgumentPosition));
-
-        return Optional.ofNullable(command);
+        if (firstArgumentPosition == 0) return Optional.empty();
+        return Optional.of(String.join(" ", copyOfRange(args, 0, firstArgumentPosition)));
     }
 
     private static int findFirstArgumentPosition(String... args) {
@@ -30,12 +27,11 @@ public final class CommandArgumentParser {
     }
 
 
-    public static List<String> getOptions(String... args) {
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].startsWith("-"))
-                return asList(copyOfRange(args, i, args.length));
-        }
-        return new ArrayList<>();
+    static List<String> getOptions(String... args) {
+        int firstArgumentPosition = findFirstArgumentPosition(args);
+
+        if (firstArgumentPosition == args.length) return new ArrayList<>();
+        else return asList(copyOfRange(args, firstArgumentPosition, args.length));
     }
 
 }
