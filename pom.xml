@@ -6,9 +6,9 @@
     <version>0.1.0-SNAPSHOT</version>
     <properties>
         <java.version>1.8</java.version>
-        <jopt-simple.version>5.0.2</jopt-simple.version>
+        <jopt-simple.version>5.0.4</jopt-simple.version>
         <reflections.version>0.9.11</reflections.version>
-        <projectlombok.version>1.16.18</projectlombok.version>
+        <projectlombok.version>1.18.4</projectlombok.version>
         <junit.version>4.12</junit.version>
     </properties>
     <dependencies>
