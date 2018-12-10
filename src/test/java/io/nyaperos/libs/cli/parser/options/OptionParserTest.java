@@ -1,6 +1,8 @@
 package io.nyaperos.libs.cli.parser.options;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.val;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -74,7 +76,7 @@ class OptionParserTest {
         assertEquals(expected, options);
     }
 
-    @Test
+    @Disabled("sure this is the desired behaviour? It should provoke problems with subcommands or parameters")
     void givenMultipleOptionsWithValues_ShouldParseIt() {
         List<OptionDTO> options = OptionParser.parse(asList(
                 "--option", "option1",
