@@ -1,5 +1,6 @@
 package io.nyaperos.libs.cli.options;
 
+import io.nyaperos.libs.cli.parser.options.ParsedOption;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,6 @@ public abstract class OptionDefinition {
     @NonNull
     private final String description;
 
-    protected abstract void setValue(String value);
+    protected abstract void setValue(ParsedOption value);
 
 }

@@ -1,11 +1,13 @@
 package io.nyaperos.libs.cli.parser.options;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@Getter
 @EqualsAndHashCode
-class OptionDTO {
+@RequiredArgsConstructor
+public class ParsedOption {
     private final String key;
     private final String value;
 

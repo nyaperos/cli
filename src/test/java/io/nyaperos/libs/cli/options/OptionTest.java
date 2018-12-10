@@ -2,6 +2,7 @@ package io.nyaperos.libs.cli.options;
 
 import io.nyaperos.libs.cli.fakes.options.Fake123StringOptionAdapter;
 import io.nyaperos.libs.cli.fakes.options.FakeOption;
+import io.nyaperos.libs.cli.parser.options.ParsedOption;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
@@ -44,10 +45,11 @@ class OptionTest {
     @Test
     void whenValueAsStringIsSet_ThenRetrieveOptionalWithValue() {
         val value = "fake-value";
+        val parsedOption = new ParsedOption("fake-option", value);
         val expectedValue = Optional.of(append123Suffix(value));
 
         val option = new FakeOption(ALIASES, DESCRIPTION, ADAPTER);
-        option.setValue(value);
+        option.setValue(parsedOption);
         assertEquals(expectedValue, option.value());
     }
 

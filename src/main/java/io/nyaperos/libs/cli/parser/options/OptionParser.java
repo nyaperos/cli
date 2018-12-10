@@ -10,8 +10,8 @@ class OptionParser {
     private OptionParser() {
     }
 
-    static List<OptionDTO> parse(List<String> args) {
-        val result = new LinkedList<OptionDTO>();
+    static List<ParsedOption> parse(List<String> args) {
+        val result = new LinkedList<ParsedOption>();
         val linkedArguments = new LinkedList<String>(args);
         
         while (!linkedArguments.isEmpty()) {
@@ -20,7 +20,7 @@ class OptionParser {
             while (!linkedArguments.isEmpty() && !isAnOption(linkedArguments.peek())) {
                 value.add(linkedArguments.poll());
             }
-            result.add(new OptionDTO(key, String.join(" ", value)));
+            result.add(new ParsedOption(key, String.join(" ", value)));
         }
         return result;
     }

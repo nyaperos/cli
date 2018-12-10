@@ -1,6 +1,5 @@
 package io.nyaperos.libs.cli.parser.options;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.val;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -17,25 +16,25 @@ class OptionParserTest {
 
     @Test
     void givenNonOptions_ShouldReturnEmptyList() {
-        List<OptionDTO> options = OptionParser.parse(emptyList());
+        List<ParsedOption> options = OptionParser.parse(emptyList());
         assertEquals(emptyList(), options);
     }
 
     @Test
     void givenFlagOption_ShouldParseItAndReturnEmptyString() {
-        List<OptionDTO> options = OptionParser.parse(singletonList("-o"));
+        List<ParsedOption> options = OptionParser.parse(singletonList("-o"));
 
-        val expected = singletonList(new OptionDTO("-o", ""));
+        val expected = singletonList(new ParsedOption("-o", ""));
         assertTrue(options.get(0).valueIsEmpty());
         assertEquals(expected, options);
     }
 
     @Test
     void givenTwoFlagOptions_ShouldParseItAndReturnTwoOptionsWithEmptyString() {
-        List<OptionDTO> options = OptionParser.parse(asList("-o", "-f"));
+        List<ParsedOption> options = OptionParser.parse(asList("-o", "-f"));
 
-        OptionDTO optionO = new OptionDTO("-o", "");
-        OptionDTO optionF = new OptionDTO("-f", "");
+        ParsedOption optionO = new ParsedOption("-o", "");
+        ParsedOption optionF = new ParsedOption("-f", "");
 
         val expected = asList(optionO, optionF);
         assertEquals(expected, options);
@@ -46,45 +45,45 @@ class OptionParserTest {
 
     @Test
     void givenOneShortOptionValue_ShouldParseIt() {
-        List<OptionDTO> options = OptionParser.parse(asList("-o", "option"));
+        List<ParsedOption> options = OptionParser.parse(asList("-o", "option"));
 
-        val expected = singletonList(new OptionDTO("-o", "option"));
+        val expected = singletonList(new ParsedOption("-o", "option"));
         assertEquals(expected, options);
     }
 
     @Test
     void givenOneLongOptionValue_ShouldParseIt() {
-        List<OptionDTO> options = OptionParser.parse(asList("--option", "option"));
+        List<ParsedOption> options = OptionParser.parse(asList("--option", "option"));
 
-        val expected = singletonList(new OptionDTO("--option", "option"));
+        val expected = singletonList(new ParsedOption("--option", "option"));
         assertEquals(expected, options);
     }
 
     @Test
     void givenOneOptionAndMultipleValue_ShouldParseIt() {
-        List<OptionDTO> options = OptionParser.parse(asList("--option", "option1", "option2", "option3"));
+        List<ParsedOption> options = OptionParser.parse(asList("--option", "option1", "option2", "option3"));
 
-        val expected = singletonList(new OptionDTO("--option", "option1 option2 option3"));
+        val expected = singletonList(new ParsedOption("--option", "option1 option2 option3"));
         assertEquals(expected, options);
     }
 
     @Test
     void givenOneOptionAndOneValueWithSlashes_ShouldParseItAsOnlyOneOption() {
-        List<OptionDTO> options = OptionParser.parse(asList("--option", "option-1, option-2, option-3"));
+        List<ParsedOption> options = OptionParser.parse(asList("--option", "option-1, option-2, option-3"));
 
-        val expected = singletonList(new OptionDTO("--option", "option-1, option-2, option-3"));
+        val expected = singletonList(new ParsedOption("--option", "option-1, option-2, option-3"));
         assertEquals(expected, options);
     }
 
     @Disabled("sure this is the desired behaviour? It should provoke problems with subcommands or parameters")
     void givenMultipleOptionsWithValues_ShouldParseIt() {
-        List<OptionDTO> options = OptionParser.parse(asList(
+        List<ParsedOption> options = OptionParser.parse(asList(
                 "--option", "option1",
                 "--argument", "argument1", "argument2"));
 
         val expected = asList(
-                new OptionDTO("--option", "option1"),
-                new OptionDTO("--argument", "argument1 argument2"));
+                new ParsedOption("--option", "option1"),
+                new ParsedOption("--argument", "argument1 argument2"));
         assertEquals(expected, options);
     }
 }
