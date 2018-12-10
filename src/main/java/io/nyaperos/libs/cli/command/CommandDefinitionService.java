@@ -2,29 +2,29 @@ package io.nyaperos.libs.cli.command;
 
 import io.nyaperos.libs.cli.command.exceptions.CommandNotFoundException;
 import io.nyaperos.libs.cli.command.exceptions.IllegalCommandDefinitionException;
-import io.nyaperos.libs.cli.command.exceptions.MultipleNamesAssignedToCommandException;
+import io.nyaperos.libs.cli.command.exceptions.MultipleAliasesAssignedToCommandException;
 import io.nyaperos.libs.cli.utils.AnnotationsUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class CommandDefinitionService {
 
     private static final Class<CommandDefinition> COMMAND_DEFINITION_ANNOTATION = CommandDefinition.class;
 
-    Class<?> find(Package pkg, String commandName) throws CommandNotFoundException {
+    Class<?> find(Package pkg, String commandAlias) throws CommandNotFoundException {
         Set<Class<?>> classes = AnnotationsUtils.find(pkg, COMMAND_DEFINITION_ANNOTATION);
         List<Class<?>> matchedCommandDefinitions = classes.stream()
-                .filter(c -> containsAlias(c, commandName))
+                .filter(c -> containsAlias(c, commandAlias))
                 .collect(Collectors.toList());
 
         if (matchedCommandDefinitions.size() > 1)
-            throw new MultipleNamesAssignedToCommandException(commandName, matchedCommandDefinitions);
+            throw new MultipleAliasesAssignedToCommandException(commandAlias, matchedCommandDefinitions);
 
         if (matchedCommandDefinitions.isEmpty())
-            throw new CommandNotFoundException(commandName);
+            throw new CommandNotFoundException(commandAlias);
 
         return matchedCommandDefinitions.get(0);
     }
@@ -37,8 +37,8 @@ class CommandDefinitionService {
         }
     }
 
-    private static boolean containsAlias(Class<?> clazz, String commandName) {
+    private static boolean containsAlias(Class<?> clazz, String commandAlias) {
         CommandDefinition commandDefinition = clazz.getAnnotation(COMMAND_DEFINITION_ANNOTATION);
-        return Stream.of(commandDefinition.names()).anyMatch(name -> name.equals(commandName));
+        return Arrays.asList(commandDefinition.aliases()).contains(commandAlias);
     }
 }
