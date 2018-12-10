@@ -3,7 +3,7 @@ package io.nyaperos.libs.cli.utils;
 import io.nyaperos.libs.cli.fakes.options.FakeOption;
 import io.nyaperos.libs.cli.fakes.packages.FakeCommandDefinitionWithOptions;
 import io.nyaperos.libs.cli.fakes.packages.duplicated.FakeNonCommandDefinition;
-import io.nyaperos.libs.cli.options.OptionDefinition;
+import io.nyaperos.libs.cli.options.Option;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +38,7 @@ class FieldUtilsTest {
         val emptyOptionClass = new FakeCommandDefinitionWithOptions();
         val expectedOptions = asSet(emptyOptionClass.name, emptyOptionClass.history);
 
-        List<OptionDefinition> options = FieldUtils.findFields(emptyOptionClass, OptionDefinition.class);
+        List<Option> options = FieldUtils.findFields(emptyOptionClass, Option.class);
 
         assertEquals(expectedOptions, asSet(options.toArray()));
     }

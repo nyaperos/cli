@@ -7,12 +7,14 @@ import lombok.val;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static io.nyaperos.libs.cli.fakes.options.Fake123StringOptionAdapter.append123Suffix;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static java.util.Arrays.asList;
+import static java.util.Collections.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class OptionTest {
 
@@ -51,6 +53,31 @@ class OptionTest {
         val option = new FakeOption(ALIASES, DESCRIPTION, ADAPTER);
         option.setValue(parsedOption);
         assertEquals(expectedValue, option.value());
+    }
+
+    @Test
+    void whenOptionHasNotSameAlias_ShouldReturnFalse() {
+        val optionDefinition = new FakeOption(singletonList("fake-alias"), "");
+        val parsedOption = new ParsedOption("different-fake-alias", "fake-value");
+
+        assertFalse(optionDefinition.hasSameAlias(parsedOption));
+
+    }
+
+    @Test
+    void whenOptionHasSameAlias_ShouldReturnTrue() {
+        val optionDefinition = new FakeOption(singletonList("fake-alias"), "");
+        val parsedOption = new ParsedOption("fake-alias", "fake-value");
+
+        assertTrue(optionDefinition.hasSameAlias(parsedOption));
+    }
+
+    @Test
+    void whenOptionHasMultipleAliasAndOneOfThemAreTheSame_ShouldReturnTrue() {
+        val optionDefinition = new FakeOption(asList("fake-alias", "other-fake-alias"), "");
+        val parsedOption = new ParsedOption("other-fake-alias", "fake-value");
+
+        assertTrue(optionDefinition.hasSameAlias(parsedOption));
     }
 
 }

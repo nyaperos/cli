@@ -1,23 +1,31 @@
 package io.nyaperos.libs.cli.options;
 
 import io.nyaperos.libs.cli.parser.options.ParsedOption;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class Option<T> extends OptionDefinition {
+@Getter
+@RequiredArgsConstructor
+public abstract class Option<T> {
 
+    @NonNull
+    private final List<String> aliases;
+    @NonNull
+    private final String description;
+    @NonNull
     private final OptionAdapter<T> adapter;
 
     private String value;
 
-    public Option(List<String> aliases, String description, @NonNull OptionAdapter<T> adapter) {
-        super(aliases, description);
-        this.adapter = adapter;
+
+    protected boolean hasSameAlias(ParsedOption parsedOption) {
+        return aliases.contains(parsedOption.getKey());
     }
 
-    @Override
     protected void setValue(ParsedOption parsedOption) {
         this.value = parsedOption.getValue();
     }
@@ -25,5 +33,7 @@ public abstract class Option<T> extends OptionDefinition {
     public Optional<T> value() {
         return adapter.adapt(this.value);
     }
+
+
 
 }
