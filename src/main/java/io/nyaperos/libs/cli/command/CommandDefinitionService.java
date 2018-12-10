@@ -14,7 +14,10 @@ class CommandDefinitionService {
 
     private static final Class<CommandDefinition> COMMAND_DEFINITION_ANNOTATION = CommandDefinition.class;
 
-    Class<?> find(Package pkg, String commandAlias) throws CommandNotFoundException {
+    private CommandDefinitionService() {
+    }
+
+    static Class<?> find(Package pkg, String commandAlias) throws CommandNotFoundException {
         Set<Class<?>> classes = AnnotationsUtils.find(pkg, COMMAND_DEFINITION_ANNOTATION);
         List<Class<?>> matchedCommandDefinitions = classes.stream()
                 .filter(c -> containsAlias(c, commandAlias))
@@ -29,7 +32,7 @@ class CommandDefinitionService {
         return matchedCommandDefinitions.get(0);
     }
 
-    <T> T instantiate(Class<T> clazz) {
+    static <T> T instantiate(Class<T> clazz) {
         try {
             return clazz.newInstance();
         } catch (IllegalAccessException | InstantiationException exception) {

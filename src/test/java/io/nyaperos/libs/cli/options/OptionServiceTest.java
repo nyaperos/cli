@@ -11,18 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 class OptionServiceTest {
 
-    private static OptionService optionService;
-
-    @BeforeAll
-    static void setUpBeforeAll() {
-        optionService = new OptionService();
-    }
-
     @Test
     void givenCommandDefinitionWithOptionField_ShouldReturnIt() {
         val commandDefinition = new FakeCommandDefinitionWithOptions();
 
-        val optionsDefinition = optionService.extract(commandDefinition);
+        val optionsDefinition = OptionService.extract(commandDefinition);
 
         assertContainsSameObject(optionsDefinition, commandDefinition.name);
         assertContainsSameObject(optionsDefinition, commandDefinition.history);
@@ -41,7 +34,7 @@ class OptionServiceTest {
         val commandDefinition = new FakeCommandDefinitionWithOptions();
         val commandDefinition2 = new FakeCommandDefinitionWithOptions();
 
-        val optionsDefinition = optionService.extract(commandDefinition);
+        val optionsDefinition = OptionService.extract(commandDefinition);
 
         assertNotContainsSameObject(optionsDefinition, commandDefinition2.name);
         assertNotContainsSameObject(optionsDefinition, commandDefinition2.history);
