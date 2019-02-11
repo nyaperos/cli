@@ -1,5 +1,7 @@
 package io.nyaperos.libs.cli.parser;
 
+import io.nyaperos.libs.cli.commons.InvalidClassInstantiationException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +12,7 @@ import static java.util.Arrays.copyOfRange;
 final class CommandArgumentParser {
 
     private CommandArgumentParser() {
-        throw new IllegalStateException("The utility class can't not be instantiated");
+        throw new InvalidClassInstantiationException(CommandArgumentParser.class);
     }
 
     static Optional<String> getCommand(String... args) {

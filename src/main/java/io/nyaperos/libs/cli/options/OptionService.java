@@ -1,5 +1,6 @@
 package io.nyaperos.libs.cli.options;
 
+import io.nyaperos.libs.cli.commons.InvalidClassInstantiationException;
 import io.nyaperos.libs.cli.parser.options.ParsedOption;
 import io.nyaperos.libs.cli.utils.FieldUtils;
 import lombok.val;
@@ -9,6 +10,7 @@ import java.util.List;
 class OptionService {
 
     private OptionService() {
+        throw new InvalidClassInstantiationException(OptionService.class);
     }
 
     static List<Option> extract(Object instance) {

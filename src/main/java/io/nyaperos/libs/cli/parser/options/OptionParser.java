@@ -1,5 +1,6 @@
 package io.nyaperos.libs.cli.parser.options;
 
+import io.nyaperos.libs.cli.commons.InvalidClassInstantiationException;
 import lombok.val;
 
 import java.util.LinkedList;
@@ -8,6 +9,7 @@ import java.util.List;
 class OptionParser {
 
     private OptionParser() {
+        throw new InvalidClassInstantiationException(OptionParser.class);
     }
 
     static List<ParsedOption> parse(List<String> args) {

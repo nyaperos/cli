@@ -1,5 +1,6 @@
 package io.nyaperos.libs.cli.utils;
 
+import io.nyaperos.libs.cli.commons.InvalidClassInstantiationException;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.Field;
@@ -9,7 +10,9 @@ import java.util.stream.Stream;
 
 public class FieldUtils {
 
-    private FieldUtils() {}
+    private FieldUtils() {
+        throw new InvalidClassInstantiationException(FieldUtils.class);
+    }
 
     public static <F, T> List<F> findFields(T instance, Class<F> clazz) {
         return Stream.of(instance.getClass().getFields())

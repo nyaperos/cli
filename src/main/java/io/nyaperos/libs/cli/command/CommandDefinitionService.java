@@ -3,11 +3,11 @@ package io.nyaperos.libs.cli.command;
 import io.nyaperos.libs.cli.command.exceptions.CommandNotFoundException;
 import io.nyaperos.libs.cli.command.exceptions.IllegalCommandDefinitionException;
 import io.nyaperos.libs.cli.command.exceptions.MultipleAliasesAssignedToCommandException;
+import io.nyaperos.libs.cli.commons.InvalidClassInstantiationException;
 import io.nyaperos.libs.cli.utils.AnnotationsUtils;
+import lombok.val;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 class CommandDefinitionService {
@@ -15,13 +15,14 @@ class CommandDefinitionService {
     private static final Class<CommandDefinition> COMMAND_DEFINITION_ANNOTATION = CommandDefinition.class;
 
     private CommandDefinitionService() {
+        throw new InvalidClassInstantiationException(CommandDefinitionService.class);
     }
 
     static Class<?> find(Package pkg, String commandAlias) throws CommandNotFoundException {
-        Set<Class<?>> classes = AnnotationsUtils.find(pkg, COMMAND_DEFINITION_ANNOTATION);
-        List<Class<?>> matchedCommandDefinitions = classes.stream()
-                .filter(c -> containsAlias(c, commandAlias))
-                .collect(Collectors.toList());
+        val matchedCommandDefinitions =
+                AnnotationsUtils.find(pkg, COMMAND_DEFINITION_ANNOTATION).stream()
+                        .filter(c -> containsAlias(c, commandAlias))
+                        .collect(Collectors.toList());
 
         if (matchedCommandDefinitions.size() > 1)
             throw new MultipleAliasesAssignedToCommandException(commandAlias, matchedCommandDefinitions);
@@ -41,7 +42,7 @@ class CommandDefinitionService {
     }
 
     private static boolean containsAlias(Class<?> clazz, String commandAlias) {
-        CommandDefinition commandDefinition = clazz.getAnnotation(COMMAND_DEFINITION_ANNOTATION);
+        val commandDefinition = clazz.getAnnotation(COMMAND_DEFINITION_ANNOTATION);
         return Arrays.asList(commandDefinition.aliases()).contains(commandAlias);
     }
 }

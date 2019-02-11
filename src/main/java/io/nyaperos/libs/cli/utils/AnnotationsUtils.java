@@ -1,5 +1,6 @@
 package io.nyaperos.libs.cli.utils;
 
+import io.nyaperos.libs.cli.commons.InvalidClassInstantiationException;
 import org.reflections.Reflections;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ClasspathHelper;
@@ -11,7 +12,9 @@ import java.util.Set;
 
 public class AnnotationsUtils {
 
-    private AnnotationsUtils() {}
+    private AnnotationsUtils() {
+        throw new InvalidClassInstantiationException(AnnotationsUtils.class);
+    }
 
     public static Set<Class<?>> find(Package pkg, Class<? extends Annotation> annotation) {
         Reflections reflections = new Reflections(
