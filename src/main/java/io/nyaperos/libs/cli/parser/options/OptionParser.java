@@ -6,13 +6,13 @@ import lombok.val;
 import java.util.LinkedList;
 import java.util.List;
 
-class OptionParser {
+public class OptionParser {
 
     private OptionParser() {
         throw new InvalidClassInstantiationException(OptionParser.class);
     }
 
-    static List<ParsedOption> parse(List<String> args) {
+    public static List<ParsedOption> parse(List<String> args) {
         val result = new LinkedList<ParsedOption>();
         val linkedArguments = new LinkedList<String>(args);
         

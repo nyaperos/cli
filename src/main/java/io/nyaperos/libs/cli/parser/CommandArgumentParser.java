@@ -1,6 +1,8 @@
 package io.nyaperos.libs.cli.parser;
 
 import io.nyaperos.libs.cli.commons.InvalidClassInstantiationException;
+import io.nyaperos.libs.cli.parser.options.ParsedOption;
+import io.nyaperos.libs.cli.parser.options.OptionParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +31,11 @@ final class CommandArgumentParser {
     }
 
 
-    static List<String> getOptions(String... args) {
+    static List<ParsedOption> getOptions(String... args) {
         int firstArgumentPosition = findFirstArgumentPosition(args);
 
         if (firstArgumentPosition == args.length) return new ArrayList<>();
-        else return asList(copyOfRange(args, firstArgumentPosition, args.length));
+        else return OptionParser.parse(asList(copyOfRange(args, firstArgumentPosition, args.length)));
     }
 
 }

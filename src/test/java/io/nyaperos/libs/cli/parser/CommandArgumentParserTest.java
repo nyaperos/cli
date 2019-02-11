@@ -1,7 +1,9 @@
 package io.nyaperos.libs.cli.parser;
 
+import io.nyaperos.libs.cli.parser.options.ParsedOption;
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.omg.PortableServer.POA;
 
 import java.util.Collections;
 import java.util.List;
@@ -65,22 +67,24 @@ class CommandArgumentParserTest {
 
     @Test
     void givenStringArray_ShouldReturnItsOptions() {
-        List<String> options = CommandArgumentParser.getOptions(ARGUMENTS);
+        List<ParsedOption> options = CommandArgumentParser.getOptions(ARGUMENTS);
 
-        List<String> expectedOptions = asList("-arg1", "value1", "-arg2", "value2");
+        List<ParsedOption> expectedOptions = asList(
+                new ParsedOption("-arg1", "value1"),
+                new ParsedOption("-arg2", "value2"));
         assertEquals(expectedOptions, options);
     }
 
     @Test
     void givenStringArrayWithoutOptions_ShouldReturnEmptyListAsOptions() {
-        List<String> options = CommandArgumentParser.getOptions(ARGUMENTS_WITHOUT_OPTIONS);
+        List<ParsedOption> options = CommandArgumentParser.getOptions(ARGUMENTS_WITHOUT_OPTIONS);
 
         assertEquals(Collections.emptyList(), options);
     }
 
     @Test
     void givenEmptyStringArray_ShouldReturnEmptyListAsOptions() {
-        List<String> options = CommandArgumentParser.getOptions(EMPTY_ARGUMENTS);
+        List<ParsedOption> options = CommandArgumentParser.getOptions(EMPTY_ARGUMENTS);
 
         assertEquals(Collections.emptyList(), options);
     }
