@@ -3,10 +3,10 @@ package io.nyaperos.libs.cli.command;
 import io.nyaperos.libs.cli.command.exceptions.CommandNotFoundException;
 import io.nyaperos.libs.cli.command.exceptions.IllegalCommandDefinitionException;
 import io.nyaperos.libs.cli.command.exceptions.MultipleAliasesAssignedToCommandException;
+import io.nyaperos.libs.cli.options.Option;
 import io.nyaperos.libs.cli.tests.packages.FakeCommandDefinitionWithoutOptions;
 import io.nyaperos.libs.cli.tests.packages.duplicated.DuplicatedCommandDefinition;
 import io.nyaperos.libs.cli.tests.packages.duplicated.DuplicatedCommandDefinition2;
-import io.nyaperos.libs.cli.options.Option;
 import io.nyaperos.libs.cli.utils.AnnotationsUtils;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.text.MessageFormat.format;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CommandDefinitionServiceTest {
@@ -46,15 +47,14 @@ class CommandDefinitionServiceTest {
 
     @Test
     void command_definition_with_2_alias_can_be_found_by_both() throws CommandNotFoundException {
-        Class<?> expectedClass = FakeCommandDefinitionWithoutOptions.class;
         String commandAlias = "fake3";
         String commandAlias2 = "fake-3";
 
         Class<?> commandDefinitionClass = CommandDefinitionService.find(PACKAGE, commandAlias);
         Class<?> commandDefinitionClass2 = CommandDefinitionService.find(PACKAGE, commandAlias2);
 
-        assertEquals(expectedClass, commandDefinitionClass);
-        assertEquals(expectedClass, commandDefinitionClass2);
+        assertThat(commandDefinitionClass, is(FakeCommandDefinitionWithoutOptions.class));
+        assertThat(commandDefinitionClass2, is(FakeCommandDefinitionWithoutOptions.class));
     }
 
     /*
@@ -80,7 +80,7 @@ class CommandDefinitionServiceTest {
     }
 
     @Test
-    //TODO: this test has no sense when instantiate is pushed down
+        //TODO: this test has no sense when instantiate is pushed down
     void primitive_type_should_throw_exception() {
         assertThrows(
                 IllegalCommandDefinitionException.class,
@@ -93,7 +93,7 @@ class CommandDefinitionServiceTest {
     void valid_command_should_return_an_instance_of_a_class() {
         DuplicatedCommandDefinition instance = CommandDefinitionService.instantiate(DuplicatedCommandDefinition.class);
 
-        assertEquals(DuplicatedCommandDefinition.class, instance.getClass());
+        assertThat(instance.getClass(), is(DuplicatedCommandDefinition.class));
     }
 
 

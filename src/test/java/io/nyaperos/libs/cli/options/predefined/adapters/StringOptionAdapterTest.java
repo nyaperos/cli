@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 class StringOptionAdapterTest {
 
@@ -13,7 +14,7 @@ class StringOptionAdapterTest {
     @Test
     void given_string_when_adapt_should_return_the_same() {
         String value = "fake-value";
-        assertEquals(Optional.of(value), ADAPTER.adapt(value));
+        assertThat(ADAPTER.adapt(value), is(Optional.of(value)));
     }
 
 }

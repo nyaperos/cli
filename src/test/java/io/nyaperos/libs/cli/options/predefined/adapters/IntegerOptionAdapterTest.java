@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 class IntegerOptionAdapterTest {
 
@@ -13,7 +14,7 @@ class IntegerOptionAdapterTest {
 
     @Test
     void given_a_string_when_adapt_should_return_it_as_integer() {
-        assertEquals(Optional.of(100), ADAPTER.adapt("100"));
+        assertThat(ADAPTER.adapt("100"), is(Optional.of(100)));
     }
 
 }

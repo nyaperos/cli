@@ -6,11 +6,13 @@ import io.nyaperos.libs.cli.tests.packages.FakeCommandDefinitionWithOptions;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
+import static io.nyaperos.libs.cli.OptionalMatchers.hasValue;
+import static io.nyaperos.libs.cli.OptionalMatchers.isEmpty;
 import static io.nyaperos.libs.cli.TestUtils.assertContainsSameObject;
 import static io.nyaperos.libs.cli.TestUtils.assertNotContainsSameObject;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 class OptionServiceTest {
 
@@ -48,8 +50,8 @@ class OptionServiceTest {
 
         OptionService.fill(command, parsedOptions);
 
-        assertFalse(command.history.value().isPresent());
-        assertFalse(command.name.value().isPresent());
+        assertThat(command.history.value(), isEmpty());
+        assertThat(command.name.value(), isEmpty());
     }
 
     @Test
@@ -59,8 +61,8 @@ class OptionServiceTest {
 
         OptionService.fill(command, parsedOptions);
 
-        assertFalse(command.history.value().isPresent());
-        assertTrue(command.name.value().isPresent());
+        assertThat(command.history.value(), isEmpty());
+        assertThat(command.name.value(), hasValue("some-fake-value"));
     }
 
     @Test
@@ -73,8 +75,8 @@ class OptionServiceTest {
         OptionService.fill(longOptionsCommand, longParsedOptions);
         OptionService.fill(shortOptionsCommand, shortParsedOptions);
 
-        assertTrue(longOptionsCommand.history.value().isPresent());
-        assertTrue(shortOptionsCommand.history.value().isPresent());
+        assertThat(longOptionsCommand.history.value(), hasValue("some-fake-value"));
+        assertThat(shortOptionsCommand.history.value(), hasValue("some-fake-value"));
     }
 
 }
