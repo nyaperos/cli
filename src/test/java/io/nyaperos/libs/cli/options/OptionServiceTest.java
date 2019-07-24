@@ -1,9 +1,8 @@
 package io.nyaperos.libs.cli.options;
 
-import io.nyaperos.libs.cli.fakes.options.FakeOption;
-import io.nyaperos.libs.cli.fakes.packages.FakeCommandDefinitionWithOptions;
 import io.nyaperos.libs.cli.parser.options.ParsedOption;
-import joptsimple.OptionParser;
+import io.nyaperos.libs.cli.tests.doubles.options.FakeOption;
+import io.nyaperos.libs.cli.tests.packages.FakeCommandDefinitionWithOptions;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
@@ -21,9 +20,8 @@ class OptionServiceTest {
         public String potato = "this is a potato";
     }
 
-
     @Test
-    void givenCommandDefinitionWithOptionField_ShouldReturnIt() {
+    void should_be_able_to_get_option_fields_of_a_command() {
         val commandDefinition = new FakeCommandDefinitionWithOptions();
 
         val optionsDefinition = OptionService.extract(commandDefinition);
@@ -33,15 +31,7 @@ class OptionServiceTest {
     }
 
     @Test
-    void givenDifferentInstancesOfCommand_ShouldBeDifferentOptionDefinitionInstances() {
-        val commandDefinition = new FakeCommandDefinitionWithOptions();
-        val commandDefinition2 = new FakeCommandDefinitionWithOptions();
-
-        assertNotSame(commandDefinition2.name, commandDefinition.name);
-    }
-
-    @Test
-    void givenDifferentInstancesOfCommand_ShouldReturnDifferentOptionDefinitionInstances() {
+    void extracted_options_from_different_command_definition_instances_should_be_different_option_instances() {
         val commandDefinition = new FakeCommandDefinitionWithOptions();
         val commandDefinition2 = new FakeCommandDefinitionWithOptions();
 
@@ -52,7 +42,7 @@ class OptionServiceTest {
     }
 
     @Test
-    void givenParsedOptionWithDifferentAlias_ShouldNotFillAnyOption() {
+    void should_not_fill_any_option_because_parsed_option_has_different_alias() {
         val command = new FakeCommandClass();
         val parsedOptions = singletonList(new ParsedOption("fake-alias", ""));
 
@@ -63,7 +53,7 @@ class OptionServiceTest {
     }
 
     @Test
-    void givenParsedOptionWithSameAlias_ShouldFillOnlySameOption() {
+    void should_fill_only_the_option_that_matches_with_alias_parsed_option() {
         val command = new FakeCommandClass();
         val parsedOptions = singletonList(new ParsedOption("name", "some-fake-value"));
 
@@ -74,7 +64,7 @@ class OptionServiceTest {
     }
 
     @Test
-    void givenParsedOptionAndOptionWith2Alias_ShouldBeAbleToFillItWithBothAliases() {
+    void should_be_able_to_fill_option_referenced_by_two_aliases() {
         val longOptionsCommand = new FakeCommandClass();
         val shortOptionsCommand = new FakeCommandClass();
         val longParsedOptions = singletonList(new ParsedOption("history", "some-fake-value"));
@@ -86,4 +76,5 @@ class OptionServiceTest {
         assertTrue(longOptionsCommand.history.value().isPresent());
         assertTrue(shortOptionsCommand.history.value().isPresent());
     }
+
 }

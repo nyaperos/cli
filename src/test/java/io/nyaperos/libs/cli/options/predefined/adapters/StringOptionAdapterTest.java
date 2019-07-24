@@ -11,7 +11,7 @@ class StringOptionAdapterTest {
     private static final StringOptionAdapter ADAPTER = new StringOptionAdapter();
 
     @Test
-    void givenString_whenAdapt_ShouldReturnOptionalWithSameString() {
+    void given_string_when_adapt_should_return_the_same() {
         String value = "fake-value";
         assertEquals(Optional.of(value), ADAPTER.adapt(value));
     }

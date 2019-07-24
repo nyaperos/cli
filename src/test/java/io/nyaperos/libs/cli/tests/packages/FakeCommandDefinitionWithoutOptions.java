@@ -1,4 +1,4 @@
-package io.nyaperos.libs.cli.fakes.packages;
+package io.nyaperos.libs.cli.tests.packages;
 
 import io.nyaperos.libs.cli.command.CommandDefinition;
 

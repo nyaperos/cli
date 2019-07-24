@@ -1,8 +1,8 @@
-package io.nyaperos.libs.cli.fakes.packages;
+package io.nyaperos.libs.cli.tests.packages;
 
 
 import io.nyaperos.libs.cli.command.CommandDefinition;
-import io.nyaperos.libs.cli.fakes.options.FakeOption;
+import io.nyaperos.libs.cli.tests.doubles.options.FakeOption;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;

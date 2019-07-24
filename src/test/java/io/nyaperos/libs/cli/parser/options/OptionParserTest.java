@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class OptionParserTest {
 
     @Test
-    void givenNonOptions_ShouldReturnEmptyList() {
+    void empty_string_list_should_return_empty_list() {
         List<ParsedOption> options = OptionParser.parse(emptyList());
         assertEquals(emptyList(), options);
     }
 
     @Test
-    void givenFlagOption_ShouldParseItAndReturnEmptyString() {
+    void flag_option_should_return_empty_string_value() {
         List<ParsedOption> options = OptionParser.parse(singletonList("-o"));
 
         val expected = singletonList(new ParsedOption("-o", ""));
@@ -30,7 +30,7 @@ class OptionParserTest {
     }
 
     @Test
-    void givenTwoFlagOptions_ShouldParseItAndReturnTwoOptionsWithEmptyString() {
+    void two_flag_options_should_return_two_options_with_empty_string_values() {
         List<ParsedOption> options = OptionParser.parse(asList("-o", "-f"));
 
         ParsedOption optionO = new ParsedOption("-o", "");
@@ -44,7 +44,7 @@ class OptionParserTest {
     }
 
     @Test
-    void givenOneShortOptionValue_ShouldParseIt() {
+    void short_option_alias_should_parse_it_and_fill_value() {
         List<ParsedOption> options = OptionParser.parse(asList("-o", "option"));
 
         val expected = singletonList(new ParsedOption("-o", "option"));
@@ -52,7 +52,7 @@ class OptionParserTest {
     }
 
     @Test
-    void givenOneLongOptionValue_ShouldParseIt() {
+    void long_option_alias_should_parse_it_and_fill_value() {
         List<ParsedOption> options = OptionParser.parse(asList("--option", "option"));
 
         val expected = singletonList(new ParsedOption("--option", "option"));
@@ -60,7 +60,7 @@ class OptionParserTest {
     }
 
     @Test
-    void givenOneOptionAndMultipleValue_ShouldParseIt() {
+    void one_option_with_multiple_value_should_parse_join_it_as_one_string() {
         List<ParsedOption> options = OptionParser.parse(asList("--option", "option1", "option2", "option3"));
 
         val expected = singletonList(new ParsedOption("--option", "option1 option2 option3"));
@@ -68,15 +68,15 @@ class OptionParserTest {
     }
 
     @Test
-    void givenOneOptionAndOneValueWithSlashes_ShouldParseItAsOnlyOneOption() {
-        List<ParsedOption> options = OptionParser.parse(asList("--option", "option-1, option-2, option-3"));
+    void one_option_with_a_value_with_slashes_should_parse_it_as_only_one_option() {
+        List<ParsedOption> options = OptionParser.parse(asList("--option", "option-1 option-2 option-3"));
 
-        val expected = singletonList(new ParsedOption("--option", "option-1, option-2, option-3"));
+        val expected = singletonList(new ParsedOption("--option", "option-1 option-2 option-3"));
         assertEquals(expected, options);
     }
 
     @Disabled("sure this is the desired behaviour? It should provoke problems with subcommands or parameters")
-    void givenMultipleOptionsWithValues_ShouldParseIt() {
+    void given_multiple_options_with_values_should_parse_it() {
         List<ParsedOption> options = OptionParser.parse(asList(
                 "--option", "option1",
                 "--argument", "argument1", "argument2"));

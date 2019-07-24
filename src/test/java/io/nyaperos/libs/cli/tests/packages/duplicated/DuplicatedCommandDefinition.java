@@ -1,8 +1,8 @@
-package io.nyaperos.libs.cli.fakes.packages.duplicated;
+package io.nyaperos.libs.cli.tests.packages.duplicated;
 
 
 import io.nyaperos.libs.cli.command.CommandDefinition;
 
 @CommandDefinition(aliases = {"duplicated-fake"})
-public class DuplicatedCommandDefinition2 {
+public class DuplicatedCommandDefinition {
 }

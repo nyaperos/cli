@@ -1,9 +1,9 @@
 package io.nyaperos.libs.cli.options.builder;
 
-import io.nyaperos.libs.cli.fakes.options.FakeOption;
-import io.nyaperos.libs.cli.fakes.options.builder.FakeBuilder;
 import io.nyaperos.libs.cli.options.OptionAdapter;
 import io.nyaperos.libs.cli.options.predefined.adapters.StringOptionAdapter;
+import io.nyaperos.libs.cli.tests.doubles.options.FakeOption;
+import io.nyaperos.libs.cli.tests.doubles.options.builder.FakeBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -21,7 +21,7 @@ class BuilderTest {
 
 
     @Test
-    void givenAllRequiredFieldsProvided_ReturnFakeOption() {
+    void when_all_required_fields_are_provided_should_build_option() {
         OptionAdapter<String> adapter = new StringOptionAdapter();
         List<String> aliasesList = Arrays.asList(ALIASES);
         FakeOption option = new FakeBuilder(adapter)
@@ -34,7 +34,7 @@ class BuilderTest {
     }
 
     @Test
-    void givenEmptyAliasesDefined_ThrowException() {
+    void when_aliases_are_empty_throw_exception() {
         assertThrows(
                 InvalidBuildStateException.class,
                 () -> new FakeBuilder(null)
@@ -46,7 +46,7 @@ class BuilderTest {
     }
 
     @Test
-    void givenNoAliasesDefined_ThrowException() {
+    void when_aliases_are_not_defined_throw_exception() {
         assertThrows(
                 InvalidBuildStateException.class,
                 () -> new FakeBuilder(null)
@@ -58,7 +58,7 @@ class BuilderTest {
 
 
     @Test
-    void givenNullAliasesDefined_ThrowException() {
+    void when_aliases_are_defined_as_null_throw_exception() {
         assertThrows(
                 NullPointerException.class,
                 () -> new FakeBuilder(null)
@@ -69,7 +69,7 @@ class BuilderTest {
     }
 
     @Test
-    void givenNoDescriptionDefined_ThrowException() {
+    void when_description_is_not_defined_throw_exception() {
         assertThrows(
                 InvalidBuildStateException.class,
                 () -> new FakeBuilder(null)
@@ -80,13 +80,22 @@ class BuilderTest {
     }
 
     @Test
-    void givenNullDescriptionDefined_ThrowException() {
+    void when_description_are_defined_as_null_throw_exception() {
         assertThrows(
                 NullPointerException.class,
                 () -> new FakeBuilder(null)
                         .aliases(ALIASES)
                         .description(null)
                         .build()
+        );
+    }
+
+    @Test
+    void when_no_option_is_defined_throw_first_aliases_error() {
+        assertThrows(
+                InvalidBuildStateException.class,
+                () -> new FakeBuilder(null).build(),
+                format(MESSAGE, "aliases")
         );
     }
 

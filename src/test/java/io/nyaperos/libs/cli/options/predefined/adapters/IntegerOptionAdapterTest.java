@@ -12,7 +12,7 @@ class IntegerOptionAdapterTest {
     private static final IntegerOptionAdapter ADAPTER = new IntegerOptionAdapter();
 
     @Test
-    void given100AsString_whenAdapt_ShouldReturnOptionalWith100AsInteger() {
+    void given_a_string_when_adapt_should_return_it_as_integer() {
         assertEquals(Optional.of(100), ADAPTER.adapt("100"));
     }
 

@@ -1,4 +1,4 @@
-package io.nyaperos.libs.cli.fakes.packages.duplicated.subpackage;
+package io.nyaperos.libs.cli.tests.packages.duplicated.subpackage;
 
 
 import io.nyaperos.libs.cli.command.CommandDefinition;

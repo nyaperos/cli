@@ -1,7 +1,7 @@
-package io.nyaperos.libs.cli.fakes.options.builder;
+package io.nyaperos.libs.cli.tests.doubles.options.builder;
 
 
-import io.nyaperos.libs.cli.fakes.options.FakeOption;
+import io.nyaperos.libs.cli.tests.doubles.options.FakeOption;
 import io.nyaperos.libs.cli.options.OptionAdapter;
 import io.nyaperos.libs.cli.options.builder.OptionBuilder;
 

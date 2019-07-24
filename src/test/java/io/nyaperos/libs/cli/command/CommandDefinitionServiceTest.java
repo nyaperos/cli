@@ -3,9 +3,9 @@ package io.nyaperos.libs.cli.command;
 import io.nyaperos.libs.cli.command.exceptions.CommandNotFoundException;
 import io.nyaperos.libs.cli.command.exceptions.IllegalCommandDefinitionException;
 import io.nyaperos.libs.cli.command.exceptions.MultipleAliasesAssignedToCommandException;
-import io.nyaperos.libs.cli.fakes.packages.FakeCommandDefinitionWithoutOptions;
-import io.nyaperos.libs.cli.fakes.packages.duplicated.DuplicatedCommandDefinition;
-import io.nyaperos.libs.cli.fakes.packages.duplicated.DuplicatedCommandDefinition2;
+import io.nyaperos.libs.cli.tests.packages.FakeCommandDefinitionWithoutOptions;
+import io.nyaperos.libs.cli.tests.packages.duplicated.DuplicatedCommandDefinition;
+import io.nyaperos.libs.cli.tests.packages.duplicated.DuplicatedCommandDefinition2;
 import io.nyaperos.libs.cli.options.Option;
 import io.nyaperos.libs.cli.utils.AnnotationsUtils;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class CommandDefinitionServiceTest {
     private static final Package PACKAGE = FakeCommandDefinitionWithoutOptions.class.getPackage();
 
     @Test
-    void givenAliasWithoutAssignedCommand_ShouldThrowException() {
+    void alias_does_not_match_with_any_command_should_throw_exception() {
         String commandAlias = "fake-non-existent-alias";
 
         assertThrows(
@@ -33,7 +33,7 @@ class CommandDefinitionServiceTest {
     }
 
     @Test
-    void givenAliasAssignedToMultipleCommands_ShouldThrowException() {
+    void when_alias_is_assigned_to_multiple_commands_should_throw_exception() {
         String commandAlias = "duplicated-fake";
         List<Class<?>> classes = Arrays.asList(DuplicatedCommandDefinition.class, DuplicatedCommandDefinition2.class);
 
@@ -45,7 +45,7 @@ class CommandDefinitionServiceTest {
     }
 
     @Test
-    void givenCommandDefinitionWith2Alias_ThenCanBeFoundByBoth() throws CommandNotFoundException {
+    void command_definition_with_2_alias_can_be_found_by_both() throws CommandNotFoundException {
         Class<?> expectedClass = FakeCommandDefinitionWithoutOptions.class;
         String commandAlias = "fake3";
         String commandAlias2 = "fake-3";
@@ -62,7 +62,7 @@ class CommandDefinitionServiceTest {
      */
 
     @Test
-    void givenClassWithoutConstructor_ShouldThrowException() {
+    void class_without_empty_constructor_should_throw_exception() {
         assertThrows(
                 IllegalCommandDefinitionException.class,
                 () -> CommandDefinitionService.instantiate(AnnotationsUtils.class),
@@ -71,7 +71,7 @@ class CommandDefinitionServiceTest {
     }
 
     @Test
-    void givenAbstractClass_ShouldThrowException() {
+    void abstract_class_should_throw_exception() {
         assertThrows(
                 IllegalCommandDefinitionException.class,
                 () -> CommandDefinitionService.instantiate(Option.class),
@@ -80,7 +80,8 @@ class CommandDefinitionServiceTest {
     }
 
     @Test
-    void givenPrimitiveType_ShouldThrowException() {
+    //TODO: this test has no sense when instantiate is pushed down
+    void primitive_type_should_throw_exception() {
         assertThrows(
                 IllegalCommandDefinitionException.class,
                 () -> CommandDefinitionService.instantiate(int.class),
@@ -89,7 +90,7 @@ class CommandDefinitionServiceTest {
     }
 
     @Test
-    void givenValidCommandDefinitionClass_ShouldReturnAnInstance() {
+    void valid_command_should_return_an_instance_of_a_class() {
         DuplicatedCommandDefinition instance = CommandDefinitionService.instantiate(DuplicatedCommandDefinition.class);
 
         assertEquals(DuplicatedCommandDefinition.class, instance.getClass());
