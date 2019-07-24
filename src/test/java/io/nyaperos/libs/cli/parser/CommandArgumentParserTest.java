@@ -3,7 +3,6 @@ package io.nyaperos.libs.cli.parser;
 import io.nyaperos.libs.cli.parser.options.ParsedOption;
 import lombok.val;
 import org.junit.jupiter.api.Test;
-import org.omg.PortableServer.POA;
 
 import java.util.Collections;
 import java.util.List;

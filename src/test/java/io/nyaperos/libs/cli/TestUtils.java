@@ -1,7 +1,5 @@
 package io.nyaperos.libs.cli;
 
-import com.sun.javafx.binding.StringFormatter;
-
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,11 +12,11 @@ public class TestUtils {
 
 
     public static <T> void assertContainsSameObject(Collection<T> collection, T object) {
-        assertTrue(containsSameObject(collection, object), StringFormatter.format("Object %s not contained on collection %s", object, collection).getValue());
+        assertTrue(containsSameObject(collection, object), String.format("Object %s not contained on collection %s", object, collection));
     }
 
     public static <T> void assertNotContainsSameObject(Collection<T> collection, T object) {
-        assertFalse(containsSameObject(collection, object), StringFormatter.format("Object %s is contained on collection %s", object, collection).getValue());
+        assertFalse(containsSameObject(collection, object), String.format("Object %s is contained on collection %s", object, collection));
     }
 
     private static <T> boolean containsSameObject(Collection<T> collection, T object) {
