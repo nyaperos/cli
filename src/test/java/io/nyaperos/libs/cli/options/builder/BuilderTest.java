@@ -11,6 +11,7 @@ import java.util.List;
 
 import static io.nyaperos.libs.cli.options.builder.InvalidBuildStateException.MESSAGE;
 import static java.text.MessageFormat.format;
+import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -24,14 +25,13 @@ class BuilderTest {
     @Test
     void when_all_required_fields_are_provided_should_build_option() {
         OptionAdapter<String> adapter = new StringOptionAdapter();
-        List<String> aliasesList = Arrays.asList(ALIASES);
 
         FakeOption option = new FakeBuilder(adapter)
                 .aliases(ALIASES)
                 .description(DESCRIPTION)
                 .build();
 
-        assertThat(option.getAliases(), is(aliasesList));
+        assertThat(option.getAliases(), is(asList(ALIASES)));
         assertThat(option.getDescription(), is(DESCRIPTION));
     }
 

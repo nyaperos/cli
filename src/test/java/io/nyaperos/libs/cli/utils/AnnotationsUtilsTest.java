@@ -8,8 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static io.nyaperos.libs.cli.TestUtils.asSet;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsIn.in;
+import static org.hamcrest.core.Is.is;
 
 class AnnotationsUtilsTest {
 
@@ -19,8 +20,12 @@ class AnnotationsUtilsTest {
 
     @Test
     void return_all_command_definitions_including_which_are_in_subpackages() {
-        Set<Class<?>> expectedClasses = asSet(DUPLICATED, DUPLICATED2, DUPLICATED3);
         Set<Class<?>> foundClasses = AnnotationsUtils.find(DUPLICATED.getPackage(), CommandDefinition.class);
-        assertEquals(expectedClasses, foundClasses);
+
+        assertThat(DUPLICATED, is(in(foundClasses)));
+        assertThat(DUPLICATED2, is(in(foundClasses)));
+        assertThat(DUPLICATED3, is(in(foundClasses)));
+
     }
+
 }

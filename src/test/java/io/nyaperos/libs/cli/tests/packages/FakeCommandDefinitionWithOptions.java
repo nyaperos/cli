@@ -13,4 +13,5 @@ public class FakeCommandDefinitionWithOptions {
     public FakeOption name = new FakeOption(singletonList("name"), "fake name description");
     public FakeOption history = new FakeOption(asList("h", "history"), "fake history description");
     public String potato = "this is a potato";
+
 }

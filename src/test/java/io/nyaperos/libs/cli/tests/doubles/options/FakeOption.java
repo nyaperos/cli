@@ -1,7 +1,7 @@
 package io.nyaperos.libs.cli.tests.doubles.options;
 
-import io.nyaperos.libs.cli.options.OptionAdapter;
 import io.nyaperos.libs.cli.options.Option;
+import io.nyaperos.libs.cli.options.OptionAdapter;
 import io.nyaperos.libs.cli.options.predefined.adapters.StringOptionAdapter;
 
 import java.util.List;

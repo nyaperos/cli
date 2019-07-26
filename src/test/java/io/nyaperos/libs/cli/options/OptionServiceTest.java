@@ -8,11 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import static io.nyaperos.libs.cli.OptionalMatchers.hasValue;
 import static io.nyaperos.libs.cli.OptionalMatchers.isEmpty;
-import static io.nyaperos.libs.cli.TestUtils.assertContainsSameObject;
-import static io.nyaperos.libs.cli.TestUtils.assertNotContainsSameObject;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.collection.IsIn.in;
+import static org.hamcrest.core.Is.is;
 
 class OptionServiceTest {
 
@@ -28,8 +29,8 @@ class OptionServiceTest {
 
         val optionsDefinition = OptionService.extract(commandDefinition);
 
-        assertContainsSameObject(optionsDefinition, commandDefinition.name);
-        assertContainsSameObject(optionsDefinition, commandDefinition.history);
+        assertThat(commandDefinition.name, is(in(optionsDefinition)));
+        assertThat(commandDefinition.history, is(in(optionsDefinition)));
     }
 
     @Test
@@ -39,8 +40,8 @@ class OptionServiceTest {
 
         val optionsDefinition = OptionService.extract(commandDefinition);
 
-        assertNotContainsSameObject(optionsDefinition, commandDefinition2.name);
-        assertNotContainsSameObject(optionsDefinition, commandDefinition2.history);
+        assertThat(commandDefinition2.name, is(not(in(optionsDefinition))));
+        assertThat(commandDefinition2.history, is(not(in(optionsDefinition))));
     }
 
     @Test
@@ -78,5 +79,6 @@ class OptionServiceTest {
         assertThat(longOptionsCommand.history.value(), hasValue("some-fake-value"));
         assertThat(shortOptionsCommand.history.value(), hasValue("some-fake-value"));
     }
+
 
 }

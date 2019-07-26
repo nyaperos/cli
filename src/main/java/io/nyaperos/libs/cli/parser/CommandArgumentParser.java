@@ -1,8 +1,8 @@
 package io.nyaperos.libs.cli.parser;
 
 import io.nyaperos.libs.cli.commons.InvalidClassInstantiationException;
-import io.nyaperos.libs.cli.parser.options.ParsedOption;
 import io.nyaperos.libs.cli.parser.options.OptionParser;
+import io.nyaperos.libs.cli.parser.options.ParsedOption;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -25,7 +25,6 @@ class CommandDefinitionServiceTest {
     @Test
     void alias_does_not_match_with_any_command_should_throw_exception() {
         String commandAlias = "fake-non-existent-alias";
-
         assertThrows(
                 CommandNotFoundException.class,
                 () -> CommandDefinitionService.find(PACKAGE, commandAlias),
